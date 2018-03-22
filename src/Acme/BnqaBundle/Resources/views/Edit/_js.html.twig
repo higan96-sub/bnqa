@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#item-search').hide();
+        $('#report_body').focus();
+        var text = $('#search-btn').text();
+        $('#search-btn').toggle(function () {
+                    $('#item-search').show();
+                    $('#search-keyword').focus();
+                    $('#item-img').hide();
+                    $('#search-btn').text('元に戻す');
+                }, function () {
+                    $('#item-img').show();
+                    $('#item-search').hide();
+                    $('#search-btn').text(text);
+                }
+        );
+        $('#search').click(function () {
+            var keyword = $('#search-keyword').val();
+
+            $.get("{{ path('search_item') }}", {keyword:keyword }, function (data) {
+                        $('#item-img').hide();
+                        $('#result').html(data);
+                        $('#result ul ul').click(
+                                function () {
+                                    $('#result ul ul').removeClass('selected');
+                                    $(this).addClass('selected');
+                                    $('#select').removeClass('disabled');
+                                    var itemId = $(this).find('.item-id').text();
+                                    var url = "{{ path('edit_report') }}";
+                                    url += '?item_id=';
+                                    url += itemId;
+                                    $('#select').attr('href', url);
+                                }
+                        );
+                    }
+            )
+        });
+        $('#select').click(function () {
+            if ($('#select').hasClass('disabled')) {
+                return false;
+            }
+
+
+        });
+
+    });
+</script>
+

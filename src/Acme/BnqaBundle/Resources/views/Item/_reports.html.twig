@@ -1,0 +1,11 @@
+{% include "AcmeBnqaBundle::_tabmenu.html.twig" with {'typeIdCount':typeIdCount,'showBook':isBook  } %}
+<div id="reports-line">
+    {% for report in reports %}
+        {% include "AcmeBnqaBundle:Item:_report.html.twig" with {'report':report} %}
+    {% else %}
+        <div class="unit">
+            まだ投稿はありません
+        </div>
+    {% endfor %}
+</div>
+

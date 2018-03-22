@@ -1,0 +1,45 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% block page_title 'bnqaの開発者' %}
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    {% include "AcmeBnqaBundle:About:_sidemenu.html.twig" with {'target':'me'} %}
+                </div>
+                <div class="col-lg-9">
+                    <div class="page-header">
+                        <h1>開発者について</h1>
+                    </div>
+                    <ul style="margin: 20px 0" class="well">
+                        <li>higan96</li>
+                        <li>野良プログラマ</li>
+                        <li><a href="http://higan96.hatenablog.com/" target="_blank">ブログ</a></li>
+                        <li><a href="https://twitter.com/higan96" target="_blank">Twitter</a></li>
+                        <li>higan.n@gmail.com</li>
+                    </ul>
+                    <div class="my-favorite" style="margin-top: 20px">
+                        <h3>おすすめ本</h3>
+
+                        <div class="row">
+                            {% for item in items %}
+                                <div class="col-lg-4 col-sm-4 col-4">
+                                    <div class="thumbnail">
+                                        <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}">
+                                            <img src="{{ asset(item.getSizedImgUrl(200,'AA')) }}" class="img-thumbnail">
+                                        </a>
+
+                                        <div class="caption">
+
+                                            <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}">
+                                                {{ item.title }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

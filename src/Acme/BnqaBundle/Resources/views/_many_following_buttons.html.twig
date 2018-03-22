@@ -1,0 +1,25 @@
+{% set itemFollowing = false %}
+{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+{% for followingStatus in list %}
+{% if followingStatus.asin_code == asinCode %}
+    {% set itemFollowing = true %}
+{% elseif itemFollowing != true %}
+    {% set itemFollowing = false %}
+{% endif %}
+{% else %}
+    {% set itemFollowing = false %}
+{% endfor %}
+{% if itemFollowing == true %}
+    {% block following_button %}
+        <button class="btn btn-small js-action-follow-item  btn-info following" >
+            フォロー中
+        </button>
+    {% endblock following_button %}
+{% else %}
+    {% block follow_button %}
+        <button class="btn btn-default btn-small js-action-follow-item" >
+            フォローする
+        </button>
+    {% endblock follow_button %}
+{% endif %}
+{% endif %}

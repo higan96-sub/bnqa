@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block og %}
+    <meta name="twitter:card" value="summary"/>
+    <meta name="twitter:site" value="@bnqa_jp"/>
+    <meta name="twitter:creator" value="@higan96"/>
+    <meta name="twitter:url"value="http://bnqa.jp{% if og_url is defined %}{{ og_url }}{% else %}{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}{% endif %}"/>
+    <meta name="twitter:title" value="{% if og_title is defined %}{{ og_title }}{% else %}bnqa{% endif %}"/>
+    <meta name="twitter:description" value="{% if tw_description is defined %}{{ tw_description }}{% else %}bnqaは本に関するノート、質問、アドバイスができるサイトです。気になるアイテムをフォローして、さらに興味を深めましょう。{% endif %}"/>
+    <meta name="twitter:image" value="{% if og_img_url is defined %}{{ og_img_url }}{% else %}http://bnqa.jp/bundles/acmebnqa/images/logo_tw_card.jpg{% endif %}"/>
+    <meta property="og:title" content="{% if og_title is defined %}{{ og_title }}{% else %}bnqa{% endif %}"/>
+    <meta property="og:type" content="{% if og_type is defined %}{{ og_type }}{% else %}article{% endif %}" />
+    <meta property="og:url" content="http://bnqa.jp{% if og_url is defined %}{{ og_url }}{% else %}{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}{% endif %}" />
+    <meta property="og:image" content="{% if og_img_url is defined %}{{ og_img_url }}{% else %}http://bnqa.jp/bundles/acmebnqa/images/logo_tw_card.jpg{% endif %}" />
+    {% endblock %}
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    {% block stylesheets %}
+        {% stylesheets
+        '@AcmeBnqaBundle/Resources/public/dist/css/bootstrap.min.css'
+        '@AcmeBnqaBundle/Resources/public/css/*' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    {% endblock stylesheets %}
+    <title>{% block title %}{{ block('page_title') }} - bnqa{% endblock title %}</title>
+</head>
+<body>
+
+<!--　　　　　　　　　人人人人人人人人
+　　　　　　　　＜　　∧＿∧　　　　 ＞　 ／￣￣￣￣￣￣￣￣￣￣￣￣
+　　　　　　　　＜　（　 ´∀｀）　　 　＞　＜タイヤにはまっちまったｧｧｧ！
+　　　　　　　　＜　と　　　　つ　　　＞　　＼＿＿＿＿＿＿＿＿＿＿＿＿
+　　　　　　　　＜　（￣￣￣￣）　　 ＞
+　　　　　　　　＜　（￣￣￣￣）　　 ＞
+　　　　　　　　＜　（￣￣￣￣）　　 ＞
+　　　　　　　　＜　　￣￣￣￣　　 ＞
+　　　　　　　　　∨∨∨∨∨∨∨∨
+-->
+
+                {% if menu is not defined %}
+                    {% set menu = null %}
+                {% endif %}
+{% include "AcmeBnqaBundle::_navbar.html.twig" %}
+{#{% include "AcmeBnqaBundle::_navbar_test.html.twig" %}#}
+{#{% include "AcmeBnqaBundle::_navbar_original.html.twig" %}#}
+<!-- /.navbar -->
+{% block headerUnit %}
+{% endblock headerUnit %}
+<div class="container">
+    <div class="main-container">
+        {% block content %}{% endblock %}
+        {% block modal %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% include "AcmeBnqaBundle::modal_edit_report.html.twig" %}
+                {% include "AcmeBnqaBundle::modal_edit_report_book.html.twig" %}
+                {% include "AcmeBnqaBundle::modal_delete.html.twig" %}
+            {% endif %}
+        {% endblock %}
+    </div>
+</div>
+{% block footer %}{% endblock %}
+{% block js %}
+    {% include "AcmeBnqaBundle::_js.html.twig" with{'controller':'other'} %}
+{% endblock %}
+{% if controller is defined and controller == 'public'  %}
+<div id="fb-root"></div>
+{% endif %}
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+{% javascripts
+'@AcmeBnqaBundle/Resources/public/dist/js/bootstrap.min.js'
+'@AcmeBnqaBundle/Resources/public/js/*' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+</body>
+</html>

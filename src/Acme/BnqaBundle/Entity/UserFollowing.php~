@@ -1,0 +1,59 @@
+<?php
+namespace Acme\BnqaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+/**
+ * UserFollowing.php .
+ *
+ * @ORM\Table(name="user_following")
+ * @ORM\Entity(repositoryClass="Acme\BnqaBundle\Entity\UserFollowingRepository")
+ */
+class UserFollowing
+{
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="integer", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
+
+  /**
+   * @var User
+   *
+   * @ORM\ManyToOne(targetEntity="User")
+   * @ORM\JoinColumns({
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+   * })
+   */
+  private $user;
+
+  /**
+   * @var User
+   *
+   * @ORM\ManyToOne(targetEntity="User")
+   * @ORM\JoinColumns({
+   * @ORM\JoinColumn(name="following_user_id", referencedColumnName="id")
+   * })
+   */
+  private $followingUser;
+
+  /**
+   * @var \DateTime $createdAt
+   *
+   * @ORM\Column(name="created_at", type="datetime", nullable=false)
+   * @Gedmo\Timestampable(on="create")
+   */
+  private $createdAt;
+
+  /**
+   * @var \DateTime $updatedAt
+   *
+   * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+   * @Gedmo\Timestampable(on="update")
+   */
+  private $updatedAt;
+}

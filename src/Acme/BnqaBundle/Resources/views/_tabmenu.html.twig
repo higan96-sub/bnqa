@@ -1,0 +1,14 @@
+<ul id="nav-tabs" class="nav nav-tabs nav-justified">
+    <li id="main" class="active">
+        <a href="#"><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_020_home.png') }}" class="hidden-lg tab-icon-home"><span class="visible-lg">メイン(<span class="numOfType">{{ typeIdCount['sum'] }}</span>)</span></a>
+    </li>
+    <li id="note" class=""><a href="#"><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_190_circle_plus.png') }}" class="hidden-lg tab-icon"><span class="visible-lg">ノート(<span class="numOfType">{{ typeIdCount['note'] }}</span>)</span></a></li>
+    <li id="question" class=""><a href="#"><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_194_circle_question_mark.png') }}" class="hidden-lg tab-icon"><span class="visible-lg">質問(<span class="numOfType">{{ typeIdCount['question'] }}</span>)</span></a></li>
+    <li id="advice" class=""><a href="#"><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_196_circle_exclamation_mark.png') }}" class="hidden-lg tab-icon"><span class="visible-lg">アドバイス(<span class="numOfType">{{ typeIdCount['advice'] }}</span>)</span></a></li>
+    {% if showBook == true %}
+    <li id="misprint" class=""><a href="#"><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_192_circle_remove.png') }}" class="hidden-lg tab-icon"><span class="visible-lg">誤植(<span class="numOfType">{{ typeIdCount['misprint'] }}</span>)</span></a></li>
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+    <li id="bookmark"><a href=""><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_072_bookmark.png') }}" class="hidden-lg tab-icon-bookmark"><span class="visible-lg"><img src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_072_bookmark.png') }}" class="tab-icon-bookmark"></span></a></li>
+    {% endif %}
+</ul>

@@ -1,0 +1,11 @@
+{% for item in followingItems %}
+    {% block sidebarUnit %}
+        {% include "AcmeBnqaBundle:Sidebar:_sidebar_item_unit.html.twig" with{'item':item} %}
+    {% endblock %}
+{% else %}
+    {% block sidebarEmpty %}
+        <div class="sidebar-unit">
+            フォローしたアイテムがここに表示されます
+        </div>
+    {% endblock sidebarEmpty %}
+{% endfor %}

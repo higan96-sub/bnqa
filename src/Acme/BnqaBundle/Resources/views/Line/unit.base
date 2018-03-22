@@ -1,0 +1,75 @@
+<div class="unit" id="{{ report.id }}">
+    <div class="unit-body ">
+        <div class="row-fluid">
+            <div class="span2">
+                {% block img %}
+                    <a href="{{ path('item_show',{'asin_code':report.asin_code}) }}">
+                        <img src="{{ report.img_url|replace({'AA90':'AA70'}) }}" class="img-polaroid">
+                    </a>
+                {% endblock img %}
+            </div>
+            <div class="span10">
+                <div class="unit-header">
+                    <strong>
+                        {% block title %}
+                            <a href="{{ path('item_show',{'asinCode':report.asin_code}) }}">
+                                {{ report.title|slice(0,50) }}
+                            </a>
+                        {% endblock %}
+                    </strong>
+                    {#{% include "AcmeBnqaBundle:Report:_typeLabel.html.twig" with {'name':report.typeName,'label':report.typeLabel} %}#}
+
+                    {% if report.page != null %}
+                        <a href="{{ path('item_page',{'asinCode':report.asin_code,'bookPage':report.page}) }}">
+                            <span class="badge">{{ report.page }} ページ</span>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="report-body">
+                    {% block body %}
+                        {% if report.wrong_body is not null and report.wrong_body != '' %}
+                            <div>
+                                <span class="wrong-body">{{ report.wrong_body|nl2br }}</span>
+                            </div>
+                            <div class="correct-body">
+                                {{ report.body|nl2br }}
+                            </div>
+                        {% else %}
+                            {{ report.body|nl2br }}
+                        {% endif %}
+                    {% endblock body %}
+                </div>
+                <div class="unit-footer">
+                    <div class="row-fluid">
+                        <div class="">
+                            <a href="{{ path('report_show',{'id':report.id,'username':report.username}) }}" class="muted">
+                                {{ report.created_at|date('Y/m/d H:i') }}
+                            </a>
+                            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                                <a href="#" class="js-action-reply report-menu">
+                                    <i class="icon-share-alt"></i>返信
+                                </a>
+                                {% if app.user.username == report.username %}
+                                    <a href="#" class="report-menu js-action-del">
+                                        <i class="icon-trash"></i>削除
+                                    </a>
+                                {% endif %}
+                                {% block bookmark %}
+                                    {% if report.isBookmarked is null %}
+                                        <a href="#" class="report-menu js-action-bookmark">
+                                            <i class="icon-bookmark"></i>ブックマークする
+                                        </a>
+                                    {% else %}
+                                        <a href="#" class="report-menu js-action-bookmark bookmarked">
+                                            <i class="icon-bookmark"></i>ブックマーク済み
+                                        </a>
+                                    {% endif %}
+                                {% endblock bookmark %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

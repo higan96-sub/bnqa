@@ -1,0 +1,13 @@
+<div id="page-count" class="well well-small">
+    <strong>ページ</strong>
+    <hr>
+    {% for result in countPage %}
+        {% if result.page != null %}
+            <a href="{{ path('item_page',{'asinCode':item.getAsinCode,'page_num':result.page}) }}">
+                <span class="label label-info">{{ result.page }}ページ</span><span class="muted"> × {{ result.countPage }}</span>
+            </a>
+        {% endif %}
+    {% else %}
+        登録なし
+    {% endfor %}
+</div>

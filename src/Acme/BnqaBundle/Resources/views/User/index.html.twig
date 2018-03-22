@@ -1,0 +1,12 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set menu = "user" %}
+{% block content %}
+    <div class="thumbnails row-fluid" >
+        {% for item in items.getAmazonItems %}
+            <div  class="thumbnail span2">
+                <img src="{{ item.getPicUrl }}" class="img-polaroid">
+                <strong>{{ item.getTitle }}</strong>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

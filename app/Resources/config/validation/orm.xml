@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Acme\BnqaBundle\Entity\User">
+        <property name="username">
+            <!-- minimum length for username -->
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">30</option>
+                <option name="minMessage">ユーザー名が短すぎます。最低{{ limit }}文字入力してください</option>
+                <option name="maxMessage">ユーザー名が長すぎます。最大で{{ limit }}文字以内で入力してください</option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/\w/</option>
+                <option name="message">ユーザー名は半角英数字およびアンダースコアを使用してください</option>
+            </constraint>
+            <!-- custom constraint -->
+        </property>
+
+
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">usernameCanonical</option>
+            <option name="errorPath">username</option>
+            <option name="message">fos_user.username.already_used</option>
+            <option name="groups">
+                <value>Registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
+
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">emailCanonical</option>
+            <option name="errorPath">email</option>
+            <option name="message">fos_user.email.already_used</option>
+            <option name="groups">
+                <value>Registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
+    </class>
+
+</constraint-mapping>

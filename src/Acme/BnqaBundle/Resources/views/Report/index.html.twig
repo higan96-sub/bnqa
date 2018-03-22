@@ -1,0 +1,108 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set controller = 'public' %}
+{% set og_type = 'website' %}
+{% set og_title = 'bnqa - 本ノート質問アドバイス' %}
+{% set og_img_url = 'http://bnqa.jp/bundles/acmebnqa/images/logo_bnqa.jpg' %}
+
+{% block title %}
+    bnqa - 本ノート質問アドバイス
+{% endblock %}
+{% block headerUnit %}
+    <div class="header-unit" style="padding: 50px 0 40px 0 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h1 style="font-size: 90px;">
+                        <img src="{{ asset('/bundles/acmebnqa/images/logo_bnqa.jpg') }}" alt="bnqa">
+                    </h1>
+
+                    <h2 style="margin-top: 20px">
+                        book note question advice
+                    </h2>
+                </div>
+                <div class="col-lg-8">
+                    <div style="font-size:25px;margin-top: 86px">
+                        bnqaは本に関するノート、質問、アドバイスができるサイトです。
+                    </div>
+                    <div style="font-size: 25px;padding-top: 10px">
+                        気になるアイテムをフォローして、さらに興味を深めましょう。
+                    </div>
+                    <div style="margin-top: 17px">
+                        <a href="register" class="btn btn-success btn-large" style="padding: 10px 50px">会員登録</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                </div>
+                {#<div class="span5">#}
+                {#<a href="register" class="btn btn-success btn-large" style="padding: 10px 50px">会員登録</a>#}
+                {#</div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div id="content">
+            <div class="row">
+                <div class="col-lg-8" style="margin-bottom: 20px;float: right;position: relative;z-index: 2;">
+                    {% include "AcmeBnqaBundle::_index_tab_menu.html.twig" %}
+                    <div id="reports-line" >
+                        {% render controller("AcmeBnqaBundle:Report:reportsLine" , {'controller':controller }) %}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="sidebar" style="margin-bottom: 20px">
+                        <ul class="nav nav-tabs following nav-justified" style="    border-bottom: 1px solid #ddd;">
+                            <li class="active">
+                                <a href="#"><strong>投稿数ランキング</strong></a>
+                            </li>
+                        </ul>
+                        <div style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;">
+                            {% include "AcmeBnqaBundle:Sidebar:_public_items.html.twig" with {'amazonItems':hotItems,'followersCounts':hotFollowersCounts,'reportsCounts':hotReportsCounts} %}
+                        </div>
+                    </div>
+                    <div class="sidebar" style="margin-bottom: 20px">
+                        <ul class="nav nav-tabs following nav-justified" style="    border-bottom: 1px solid #ddd;">
+                            <li class="active">
+                                <a href="#"><strong>最近フォローされたアイテム</strong></a>
+                            </li>
+                        </ul>
+                        <div style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;">
+                            {% include "AcmeBnqaBundle:Sidebar:_public_items.html.twig" with {'amazonItems':newItems,'followersCounts':newFollowersCounts,'reportsCounts':newReportsCounts} %}
+                        </div>
+                    </div>
+                    <div class="sidebar">
+                        <div class="fb-like-box" data-href="https://www.facebook.com/pages/bnqajp/163071733882163" data-width="300" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <div class="footer-unit">
+        <div class="container" style="padding: 40px 0 100px 0;">
+            <div class="row">
+                <div class="" style="font-size: 30px;line-height: 53px;text-align: center">
+                    <div style="padding: 20px">
+                        bnqaの使い方には<br>勉強の記録や質問、ゲームの攻略、<br>興味のあるDVDやCDに関する<br>コミュニケーションなど多岐にわたります。
+                    </div>
+                    <div style="margin-top: 0px;margin-bottom: 40px">
+                        あなただけの使い方がきっと見つかります。
+                    </div>
+                    <div>
+                        <a href="register" class="btn btn-success btn-large" style="padding: 10px 50px">会員登録</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center;background-color: #777">
+        {% include "AcmeBnqaBundle::about.html.twig" %}
+    </div>
+{% endblock %}
+{% block js %}
+    {% include "AcmeBnqaBundle::_js.html.twig" with{'controller':'public'} %}
+{% endblock js %}

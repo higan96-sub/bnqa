@@ -1,0 +1,9 @@
+    {% for item in followingItems %}
+        {% include "AcmeBnqaBundle:Sidebar:_home_item_unit.html.twig" with{'item':item} %}
+    {% else %}
+        <div class="sidebar-unit">
+            この位置にフォローしたアイテムが表示されます。<br>
+            <strong>興味のあるアイテムをフォローしてみましょう。</strong><br>
+        </div>
+        {% render controller("AcmeBnqaBundle:Item:topSellers") %}
+    {% endfor %}

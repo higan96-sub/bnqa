@@ -1,0 +1,16 @@
+<div class="well well-large well-white" style="padding: 20px 20px 50px 20px">
+
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    <legend>パスワードのリセット</legend>
+    <div class="control-group">
+        {% if invalid_username is defined %}
+            <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
+        {% endif %}
+        <label for="username" class="control-label">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+        <input type="text" id="username" name="username" required="required" class="form-control" placeholder="ユーザー名かメールアドレスを入力してください" style="width: 400px;margin: 0px 0 20px  0px"/>
+    </div>
+    <div class="control-group">
+        <input type="submit" value="{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-primary"/>
+    </div>
+</form>
+</div>

@@ -1,0 +1,28 @@
+{#User Show#}
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set menu = 'user' %}
+{% block page_title user.username ~ "のレポート" %}
+{% block content %}
+    <div class="container">
+        <div id="content">
+            <div class="row">
+                <div class="span9">
+                    {% include "AcmeBnqaBundle:User:_user_menu.html.twig" with {'user':user,'menu':'reports'} %}
+                    {% include "AcmeBnqaBundle::_tabmenu.html.twig" with { 'typeIdCount':typeIdCount,'showBook':true  } %}
+                    <div id="reports-line">
+                        {% render "AcmeBnqaBundle:User:showBody" with { user : user } %}
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="sidebar">
+                        {% render "AcmeBnqaBundle:Report:sidebar" with {user_id:user.id} %}
+                    </div>
+                </div>
+                <div class="sidebar">
+                    {% render "AcmeBnqaBundle:Report:postedItem" with {user_id:user.id} %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "AcmeBnqaBundle:User:_js.html.twig" with {'user':user } %}
+{% endblock %}

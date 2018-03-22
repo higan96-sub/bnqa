@@ -1,0 +1,35 @@
+<div class="sidebar-unit item-unit" id="{{ item.asin_code }}">
+    <div class="row">
+        <div class="col-4 col-sm-4 col-lg-4">
+            <a href="{{ path('item_show',{'asin_code' : item.asin_code}) }}">
+                {% if item.img_url == null %}
+                    <img src="{{ asset('bundles/acmebnqa/images/no-image-80.jpg') }}" alt="{{ item.title }}"
+                         class="img-thumbnail">
+                {% else %}
+                    <img src="{{ item.img_url }}" alt="{{ item.title }}" class=" img-thumbnail">
+                {% endif %}
+            </a>
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                {% block button %}
+                    {% if areTheseItemsFollowing is not null %}
+                        {% include "AcmeBnqaBundle::_many_following_button_sidebar.html.twig" with {'asinCode':item.asin_code,'list':areTheseItemsFollowing} %}
+                    {% endif %}
+                {% endblock %}
+            {% endif %}
+        </div>
+        <div class="col-8 col-sm-8 col-lg-8">
+            <a href="{{ path('item_show',{'asin_code' : item.asin_code}) }}">
+                <h6>
+                    {{ item.title|slice(0,50) }}
+                </h6>
+            </a>
+            {% include "AcmeBnqaBundle::_item_analysis.html.twig" with {'asinCode':item.asin_code} %}
+            <div class="amazon-link">
+                <a href="http://amazon.co.jp/dp/{{ item.asin_code }}/{{ affiliateId }}" class="bookmarked"
+                   target="_blank">
+                    amazon.co.jpで詳細を確認
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

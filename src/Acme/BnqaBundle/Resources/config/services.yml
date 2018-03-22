@@ -1,0 +1,11 @@
+services:
+  bnqa.mail_service:
+    class: Acme\BnqaBundle\Service\MailService
+    arguments:
+      - @mailer
+      - @twig
+  bnqa.user_service:
+    class: Acme\BnqaBundle\Service\UserService
+    arguments:
+      - @doctrine
+      - @bnqa.mail_service

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-lg-12">
+        <ul class="pagination pagination-large">
+            {% set page = app.request.query.get('page') %}
+            {% if page == null %}
+                {% set page = 1 %}
+            {% endif %}
+            {% for i in 1..limit %}
+                <li{% if page == i %} class="active" {% endif %}>
+                    {% if app.request.get('_route') == 'author_show' %}
+                    <a href="{{ path("author_show",{'author_name':author_name,'page':i}) }}">
+                        {% else %}
+                        <a href="{{ path("search_item",{'keyword':app.request.query.get('keyword'),'page':i}) }}">
+                            {% endif %}
+                            {{ i }}
+                        </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

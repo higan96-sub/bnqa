@@ -1,0 +1,92 @@
+.sidebar-ad{
+    margin-top: 20px;
+}
+.following-sidebar-wrapper {
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+.sidebar-body{
+    display: block;
+    color: #333333;
+}
+
+.sidebar-body a:hover {
+    color: #006dcc;
+    text-decoration: underline;
+}
+
+h6{
+    color: #333;
+    margin: 0;
+    line-height: 15px;
+    font-size: 12px;;
+}
+
+h6:hover {
+    color: #006dcc;
+    text-decoration: underline;
+}
+
+.sidebar-image {
+    margin-bottom: 5px;
+}
+
+.sidebar-unit:hover {
+    background-color: #eFeFeF;
+}
+
+.sidebar-unit {
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+}
+
+.sidebar .progress.progress-striped.active {
+    margin: 10px;
+}
+
+.sidebar .progress.progress-striped.active .bar {
+    width: 100%;
+}
+
+.sidebar-unit .analysis {
+    font-size: 12px;
+    padding: 5px 0;
+    line-height: 14px;
+}
+.sidebar-unit .amazon-link {
+    font-size: 12px;
+    padding: 0;
+    margin-bottom: 5px;
+    line-height: 14px;
+}
+
+.sidebar .about{
+    margin: 20px 0;
+}
+
+a.edit-button:hover{
+    text-decoration: none;
+    color: #FFF;
+}
+
+.load-items{
+    text-align: center;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    padding: 15px 0;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.load-items:hover{
+    background-color: #ddd;
+}
+
+.js-action-show-following{
+    margin-bottom: 35px;
+}

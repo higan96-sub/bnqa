@@ -1,0 +1,13 @@
+<form action="{{ path('report_delete',{'asinCode':asinCode}) }}" method="POST" >
+    {{ form_widget(form) }}
+    <div class="modal-header">
+        このレポートを削除しますか？
+    </div>
+    <div class="modal-body">
+        <div class="delete-report-body unit"></div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="削除" class="btn btn-danger">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">キャンセル</button>
+    </div>
+</form>

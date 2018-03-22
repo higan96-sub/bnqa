@@ -1,0 +1,53 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set controller = 'home' %}
+{% block page_title 'マイホーム' %}
+    {% block content %}
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="hidden-lg">
+                    <a data-toggle="modal" href="#followingModal"
+                       class="btn btn-primary btn-large btn-block js-action-show-following">フォロー中のアイテムを表示する</a>
+                </div>
+                <div class="sidebar">
+                    {% render controller("AcmeBnqaBundle:User:homeSidebar") %}
+                    <div class="sidebar-ad visible-lg">
+                        <script type="text/javascript"><!--
+                            google_ad_client = "ca-pub-6281261028186687";
+                            /* home_text */
+                            google_ad_slot = "9339845283";
+                            google_ad_width = 300;
+                            google_ad_height = 250;
+                            //-->
+                        </script>
+                        <script type="text/javascript"
+                                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+                    </div>
+                    <div class="visible-lg">
+                        {% include "AcmeBnqaBundle::about.html.twig" with{} %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8" style="margin-bottom: 40px">
+                {% include "AcmeBnqaBundle::_message.html.twig" %}
+                {% include "AcmeBnqaBundle::_index_tab_menu.html.twig" %}
+                <div id="reports-line">
+                    {% render controller("AcmeBnqaBundle:Report:reportsLine", {'controller':controller }) %}
+                </div>
+                <div class="load-to-read">
+                    <span>つづきを読む</span>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+    {% block js %}
+        {% include "AcmeBnqaBundle::_js.html.twig" with{'controller':'home','controller':controller} %}
+    {% endblock js %}
+    {% block modal %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% include "AcmeBnqaBundle::modal_edit_report.html.twig" %}
+            {% include "AcmeBnqaBundle::modal_edit_report_book.html.twig" %}
+            {% include "AcmeBnqaBundle::modal_delete.html.twig" %}
+            {% include "AcmeBnqaBundle::modal_following.html.twig" %}
+        {% endif %}
+    {% endblock %}

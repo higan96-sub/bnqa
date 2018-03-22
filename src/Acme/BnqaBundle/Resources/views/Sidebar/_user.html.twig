@@ -1,0 +1,45 @@
+<div class="sidebar">
+    <div class="well">
+        <div class="sidebar-header">
+            <div class="row-fluid">
+                <a href="{{ path('user_show',{'username':user.username}) }}">
+                    <div class="span3">
+                        <img src="{{ asset(user.getProfileImgUrl) }}" alt="{{ user.username }}" class="img-rounded profile-img">
+                    </div>
+                    <div class="span9">
+                        <div id="user-username">
+                            <strong>{{ user.username }}</strong>
+                        </div>
+                        {% if app.user.id == user.id %}
+                            <div id="user-profile">
+                                <span class="muted">ユーザーページを確認</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="sidebar-body">
+            <div class="row-fluid">
+                <a href="{{ path('user_show',{'username':user.username}) }}">
+                    <div class="span3">
+                        <div>{{ typeIdCount }}</div>
+                        <span class="muted">レポート</span>
+                    </div>
+                </a>
+                <a href="{{ path('user_show_following',{'username':user.username}) }}">
+                    <div class="span3">
+                        <div>{{ followingCount }}</div>
+                        <span class="muted">アイテム</span>
+                    </div>
+                </a>
+                <a href="{{ path('user_show_bookmark',{'username':user.username}) }}">
+                    <div class="span6">
+                        <div>{{ bookmarkCount }}</div>
+                        <span class="muted">ブックマーク</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

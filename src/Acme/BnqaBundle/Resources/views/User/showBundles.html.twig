@@ -1,0 +1,40 @@
+{#User Show#}
+{% block page_title user.username ~ "のバンドル" %}
+    {% extends "AcmeBnqaBundle::base.html.twig" %}
+    {% set menu = 'user' %}
+    {% block content %}
+        <div class="container">
+            <div id="content">
+                <div class="row">
+                    <div class="span9">
+                        {% include "AcmeBnqaBundle:User:_user_menu.html.twig" with {'user':user,'menu':'bundles'} %}
+                        <div id="main">
+                            {% for bundle in bundles %}
+                                <div class="bundle-unit well well-white">
+                                    <a href="{{ path('bundle_show',{'bundle_id':bundle.id}) }}" style="display: block;color: #333">
+                                        <h3 class="bundle-title">
+                                            {{ bundle.title }}
+                                        </h3>
+
+                                        <div class="bundle-body">
+                                            {{ bundle.body|slice(0,200) }}...<br>
+                                            <span class="pull-right">続きを読む</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="span3" style="padding-top: 20px">
+                        <div class="sidebar">
+                            {% render "AcmeBnqaBundle:Report:sidebar" with {user_id:user.id} %}
+                        </div>
+                    </div>
+                    <div class="sidebar">
+                        {% render "AcmeBnqaBundle:Report:postedItem" with {user_id:user.id} %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endblock %}

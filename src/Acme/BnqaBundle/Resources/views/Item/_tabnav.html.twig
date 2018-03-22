@@ -1,0 +1,16 @@
+<ul class="nav nav-tabs">
+    {% for result in countResults %}
+        <li{% if result.typeId == -1 %} class="active"{% endif %}>
+            <a href="{{ path('item_show',{'asinCode':item.getAsinCode}) }}">メイン</a></li>
+        <li{% if result.typeId == 1 %} class="active"{% endif %}>
+            <a href="{{ path('item_show',{'asinCode':item.getAsinCode,'t':'notes'}) }}">ノート(<span>{% if result.typeId == -1 %}result.numOfReport{% endif %})</a></li>
+        <li{% if result.typeId == 2 %} class="active"{% endif %}>
+            <a href="{{ path('item_show',{'asinCode':item.getAsinCode,'t':'questions'}) }}">質問(<span>{% if result.typeId == -1 %}result.numOfReport{% endif %})</a></li>
+        <li{% if result.typeId == 3 %} class="active"{% endif %}>
+            <a href="{{ path('item_show',{'asinCode':item.getAsinCode,'t':'advices'}) }}">アドバイス(<span>{% if result.typeId == -1 %}result.numOfReport{% endif %})</a></li>
+        {#{% if item.isBook %}#}
+            {#<li class="pull-right{% if result.typeId == 4 %} active{% endif %}">#}
+                {#<a href="{{ path('item_show',{'asinCode':item.getAsinCode,'t':'misprints'}) }}">誤植(<span>{% if result.typeId == -1 %}result.numOfReport{% endif %})</a></li>#}
+        {#{% endif %}#}
+    {% endfor %}
+</ul>

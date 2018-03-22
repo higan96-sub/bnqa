@@ -1,0 +1,380 @@
+<?php
+namespace Acme\BnqaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Acme\BnqaBundle\Item\AmazonItem;
+
+/**
+ * Acme\BnqaBundle\Entity\Item
+ *
+ * @ORM\Table(name="item")
+ * @ORM\Entity(repositoryClass="Acme\BnqaBundle\Entity\ItemRepository")
+ */
+class Item
+{
+  const ADULT_ITEM = '';
+
+  /**
+   * Constructor,
+   *
+   * @param \Acme\BnqaBundle\Item\AmazonItem $amazonItem
+   */
+  public function __construct(AmazonItem $amazonItem = null)
+  {
+    if ($amazonItem !== null)
+    {
+      $this->setItemTitle($amazonItem->getItemTitle());
+      $this->setItemId($amazonItem->getItemId());
+      $this->setPage($amazonItem->getNumberOfPages());
+      $this->setAdult($amazonItem->isAdultItem());
+      if ($amazonItem->isImgUrlNull())
+      {
+        $this->setItemImgUrl(null);
+      } else
+      {
+        $this->setItemImgUrl($amazonItem->getSizedImgUrl(90,'AA',false));
+      }
+    }
+  }
+
+  /**
+   * @var integer $id
+   *
+   * @ORM\Column(name="id", type="integer", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
+
+  /**
+   * @var string $itemId
+   *
+   * @ORM\Column(name="item_id", type="string", unique=true, length=100, nullable=false)
+   */
+  private $itemId;
+
+
+  /**
+   * @var string $itemId
+   *
+   * @ORM\Column(name="item_img_url", type="string", unique=false , length=100, nullable=true)
+   */
+  private $itemImgUrl;
+
+  /**
+   * @var string $itemId
+   *
+   * @ORM\Column(name="item_title", type="string", length=100, nullable=false)
+   */
+  private $itemTitle;
+
+  /**
+   * @var integer $page
+   *
+   * @ORM\Column(name="page", type="integer", nullable=true)
+   */
+  private $page;
+
+  /**
+   * @var boolean $adult
+   *
+   * @ORM\Column(name="adult", type="boolean", nullable=false)
+   */
+  private $adult;
+
+
+  /**
+   * @var \DateTime $releasedDate
+   *
+   * @ORM\Column(name="released_date", type="date", nullable=false)
+   */
+  private $releasedDate;
+
+  /**
+   * @var \DateTime $createdAt
+   *
+   * @ORM\Column(name="created_at", type="datetime", nullable=false)
+   * @Gedmo\Timestampable(on="create")
+   */
+
+  private $createdAt;
+
+  /**
+   * @var \DateTime $updatedAt
+   *
+   * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+   * @Gedmo\Timestampable(on="update")
+   */
+  private $updatedAt;
+
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  /**
+   * Set itemId
+   *
+   * @param string $itemId
+   *
+   * @return Item
+   */
+  public function setItemId($itemId)
+  {
+    $this->itemId = $itemId;
+
+    return $this;
+  }
+
+  /**
+   * Get itemId
+   *
+   * @return string
+   */
+  public function getItemId()
+  {
+    return $this->itemId;
+  }
+
+  /**
+   * Set itemImgUrl
+   *
+   * @param string $itemImgUrl
+   *
+   * @return Item
+   */
+  public function setItemImgUrl($itemImgUrl)
+  {
+    $this->itemImgUrl = $itemImgUrl;
+
+    return $this;
+  }
+
+  /**
+   * Get itemImgUrl
+   *
+   * @return string
+   */
+  public function getItemImgUrl()
+  {
+    return $this->itemImgUrl;
+  }
+
+  /**
+   * Set itemTitle
+   *
+   * @param string $itemTitle
+   *
+   * @return Item
+   */
+  public function setItemTitle($itemTitle)
+  {
+    $this->itemTitle = $itemTitle;
+
+    return $this;
+  }
+
+  /**
+   * Get itemTitle
+   *
+   * @return string
+   */
+  public function getItemTitle()
+  {
+    return $this->itemTitle;
+  }
+
+  /**
+   * @param string $associateId
+   *
+   * @return string
+   */
+  public function getItemUrl($associateId = 'higan96-22')
+  {
+    $baseUrl = 'http://www.amazon.co.jp/dp/';
+
+    $url = $baseUrl . $this->itemId . '/' . $associateId;
+
+    return $url;
+  }
+
+  /**
+   * @return bool
+   */
+  public function isAdultItem()
+  {
+    return (boolean)$this->adult;
+  }
+
+
+  /**
+   * Get sized itemImgUrl
+   *
+   * @return string
+   */
+
+  public function getSizedImgUrl($imgSize = 90, $sizeCode = 'SL')
+  {
+    if ($this->itemImgUrl === null)
+    {
+      if ($imgSize <= 90)
+      {
+        return 'bundles/acmebnqa/images/no-image-small.gif';
+      }
+
+      return 'bundles/acmebnqa/images/no-image.gif';
+    }
+
+    $imgUrl = str_replace('._AA90_.', '._' . $sizeCode . $imgSize . '_.', $this->itemImgUrl);
+
+    return $imgUrl;
+  }
+
+  public function getFormattedTitle()
+  {
+    preg_match('/^.*\b./', $this->title, $matches);
+
+    return $matches[0];
+  }
+
+  private function getRawItemImgUrl()
+  {
+    if ($this->itemImgUrl == null)
+    {
+      return 'bundles/acmebnqa/images/no-image-small.gif';
+    }
+
+    return $this->itemImgUrl;
+  }
+
+
+  /**
+   * This item is book.
+   *
+   * @return boolean
+   */
+  public function isBook()
+  {
+    if ($this->page === null)
+    {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Set adult
+   *
+   * @param boolean $adult
+   *
+   * @return Item
+   */
+  public function setAdult($adult)
+  {
+    $this->adult = $adult;
+
+    return $this;
+  }
+
+  /**
+   * Get adult
+   *
+   * @return boolean
+   */
+  public function isAdult()
+  {
+    return (boolean)$this->adult;
+  }
+
+  /**
+   * Set page
+   *
+   * @param integer $page
+   *
+   * @return Item
+   */
+  public function setPage($page)
+  {
+    $this->page = $page;
+
+    return $this;
+  }
+
+  /**
+   * Get page
+   *
+   * @return integer
+   */
+  public function getPage()
+  {
+    return $this->page;
+  }
+
+  public function getNumberOfPages()
+  {
+    return $this->page;
+  }
+
+  /**
+   * Get adult
+   *
+   * @return boolean
+   */
+  public function getAdult()
+  {
+    return $this->adult;
+  }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Item
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Item
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+}

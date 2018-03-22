@@ -1,0 +1,13 @@
+<span class="label
+                {% if report.getTypeId == 0 %}
+                label-success
+                {% elseif report.getTypeId == 1 %}
+                label-info
+                {% elseif report.getTypeId == 2 %}
+                label-warning
+                {% elseif report.getTypeId == 3 %}
+                label-important
+                {% endif %}
+                ">
+                {{ report.getTypeName }}
+</span>

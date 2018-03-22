@@ -1,0 +1,42 @@
+<form action="{{ path('report_edit_report_book') }}" method="post"
+      class="form-horizontal" id="edit-form">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <label class="control-label">レポートの種類</label>
+                {{ form_errors(form.type) }}
+                {{ form_widget(form.type,{'attr':{'class':'form-control' } }) }}
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <label class="control-label">ページ</label>
+
+                <div class="input-group">
+                    {{ form_errors(form.page) }}
+                    {{ form_widget(form.page,{'attr':{'class':'form-control' } }) }}
+                    <span class="input-group-addon">ページ</span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="misprint-form">
+                <label class="control-label ">誤った表記</label>
+                {{ form_errors(form.misprint.wrongBody) }}
+                {{ form_widget(form.misprint.wrongBody,{'attr':{'class':'form-control','rows':'4' }}) }}
+            </div>
+            <label class="control-label body-label">本文</label>
+            {{ form_errors(form.body) }}
+            {{ form_widget(form.body,{'attr':{'class':'form-control','rows':'4' }}) }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-12">
+                <input type="submit" value="送信" class="btn btn-primary pull-right" style="margin-left: 5px;">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">閉じる</button>
+            </div>
+        </div>
+    </div>
+    {#<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>#}
+
+    {{ form_rest(form) }}
+</form>

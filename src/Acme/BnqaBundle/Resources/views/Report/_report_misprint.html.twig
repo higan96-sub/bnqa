@@ -1,0 +1,32 @@
+{% extends "AcmeBnqaBundle:Report:_report_base.html.twig" %}
+{% block image1 %}
+    <a href="{{ path('item_show',{'asinCode':report.raw_item_id}) }}">
+        <img src="{{ asset(report.item_img_url) }}" class="img-polaroid item-img">
+    </a>
+{% endblock %}
+{% block image2 %}
+    <a href="{{ path('user_show',{'username':report.username}) }}">
+        {% if report.profile_img_url == null %}
+            <img src="{{ asset('bundles/acmebnqa/images/profile-img-default.png') }}" class="profile-img-middle img-polaroid img-rounded">
+        {% else %}
+            <img src="{{ asset( report.profile_img_url) }}" class="profile-img-middle img-polaroid img-rounded">
+        {% endif %}
+    </a>
+{% endblock %}
+{% block title %}
+    <a href="{{ path('item_show',{'asinCode':report.raw_item_id}) }}" class="muted">
+        {{ report.item_title|slice(0,50) }}
+    </a>
+{% endblock %}
+{% block body %}
+    <h4 class="text-error">誤</h4>
+    <blockquote class="misprint-body wrong">
+        {{ report.wrong_body }}
+    </blockquote>
+    <h4 class="text-success">正</h4>
+    <blockquote class="misprint-body correct">
+        {{ report.correct_body }}
+    </blockquote>
+{% endblock %}
+{% block bookmark %}
+{% endblock %}

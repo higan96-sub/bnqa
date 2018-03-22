@@ -1,0 +1,137 @@
+<?php
+namespace Acme\BnqaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Acme\BnqaBundle\Entity\AutoLogin
+ *
+ * @ORM\Table(name="auto_login")
+ * @ORM\Entity
+ */
+class AutoLogin
+{
+  /**
+   * @var integer $id
+   *
+   * @ORM\Column(name="id", type="integer", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
+
+
+  /**
+   * @var string $token
+   *
+   * @ORM\Column(name="token", type="string", length=100, nullable=false)
+   */
+  private $token;
+
+  /**
+   * @var integer $expires
+   *
+   * @ORM\Column(name="expires", type="integer", nullable=false)
+   */
+  private $expires;
+
+  /**
+   * @var User
+   *
+   * @ORM\ManyToOne(targetEntity="User")
+   * @ORM\JoinColumns({
+   *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+   * })
+   */
+  private $user;
+
+  /**
+   * Get id.
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
+
+  /**
+   * Set id.
+   * @param integer $id
+   *
+   * @return AutoLogin
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+    return $this;
+  }
+
+  /**
+   * Get token.
+   *
+   * @return string $token
+   */
+  public function getToken()
+  {
+    return $this->token;
+  }
+
+  /**
+   * Set token.
+   *
+   * @param string $token
+   *
+   * @return AutoLogin
+   */
+  public function setToken($token)
+  {
+    $this->token = $token;
+    return $this;
+  }
+
+  /**
+   * Get expires.
+   *
+   * @return integer
+   */
+  public function getExpires()
+  {
+    return $this->expires;
+  }
+
+  /**
+   * Set expires.
+   *
+   * @param String $expires
+   *
+   * @return AutoLogin
+   */
+  public function setExpires($expires)
+  {
+    $this->expires = $expires;
+    return $this;
+  }
+
+  /**
+   * Set user
+   *
+   * @param Acme\BnqaBundle\Entity\User $user
+   * @return AutoLogin
+   */
+  public function setUser(\Acme\BnqaBundle\Entity\User $user = null)
+  {
+    $this->user = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get user
+   *
+   * @return Acme\BnqaBundle\Entity\User
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
+}

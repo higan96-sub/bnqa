@@ -1,0 +1,34 @@
+<div class="sidebar">
+    <div class="well">
+        <a href="{{ path('user_show_bookmark',{'username':user.username}) }}" class="header-title">
+            <div class="sidebar-header">
+                <i class="icon-bookmark"></i>最近ブックマークしたレポート
+            </div>
+        </a>
+        <div class="item-sidebar-body">
+            {% for bookmark in bookmarks %}
+                <a href="{{ path('report_show',{'username':bookmark.user.username,'id':bookmark.report.id}) }}">
+                    <div class="sidebar-unit{% if loop.last %} last-unit{% endif %}">
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <img src="{{ bookmark.report.user.profileImgUrl }}" alt="{{ bookmark.report.item.title }}" class="img-polaroid img-rounded">
+                            </div>
+                            <div class="span9">
+                                <span class="username">{{ bookmark.report.user.username }}</span> -
+                                {% if bookmark.report.body|length > 50 %}
+                                    {{ bookmark.report.body|slice(0,50) }}...
+                                {% else %}
+                                    {{ bookmark.report.body }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% else %}
+                    <div class="unit">
+                    まだブックマークした投稿はありません
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>

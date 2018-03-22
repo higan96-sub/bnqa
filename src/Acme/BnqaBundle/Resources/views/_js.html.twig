@@ -1,0 +1,54 @@
+<script type="text/javascript">
+    var controller = "{{ controller }}";
+    {% if controller == 'home' %}
+    var userId = null;
+    var asinCode = null;
+    var bookPage = 0;
+    {% endif %}
+    {% if controller == 'item' %}
+    var userId = null;
+    var asinCode = "{{ item.getAsinCode }}";
+    var bookPage = {{ bookPage }};
+    {% endif %}
+    {% if controller == 'user' %}
+    var userId = {{ user.id }};
+    var asinCode = null;
+    var bookPage = 0;
+    {% endif %}
+    {% if controller == 'bookmark' %}
+    var userId = {{ user.id }};
+    var asinCode = null;
+    var bookPage = 0;
+    {% endif %}
+    {% if controller == 'public' %}
+    var userId = null;
+    var asinCode = null;
+    var bookPage = 0;
+    {% endif %}
+    {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
+    var csrf_token = "{{ app.session.get('csrf_token') }}";
+    {% endif %}
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-43264092-1', 'bnqa.jp');
+    ga('send', 'pageview');
+    {% if controller == 'public'  %}
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    {% endif %}
+</script>

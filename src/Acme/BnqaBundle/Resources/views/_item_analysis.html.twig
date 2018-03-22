@@ -1,0 +1,42 @@
+<div class="analysis">
+    <div>
+        {% set fNum = 0 %}
+        {% for count in followersCounts %}
+            {% if count.asin_code == asinCode %}
+                {% set fNum =   count.count %}
+            {% endif %}
+        {% endfor %}
+        フォロワー数：
+        {% if fNum >= 200 %}
+            <strong class="text-danger">{{ fNum }}</strong>
+        {% elseif fNum >= 100 %}
+            <strong class="text-warning">{{ fNum }}</strong>
+        {% elseif fNum >= 50 %}
+            <strong class="text-success">{{ fNum }}</strong>
+        {% elseif fNum >= 10 %}
+            <strong>{{ fNum }}</strong>
+        {% else %}
+            {{ fNum }}
+        {% endif %}
+    </div>
+    <div>
+        {% set rNum =  0 %}
+        {% for count in reportsCounts %}
+            {% if count.asin_code == asinCode %}
+                {% set rNum =   count.count %}
+            {% endif %}
+        {% endfor %}
+        投稿数：
+        {% if rNum >= 200 %}
+            <strong class="text-danger">{{ rNum }}</strong>
+        {% elseif rNum >= 100 %}
+            <strong class="text-warning">{{ rNum }}</strong>
+        {% elseif rNum >= 50 %}
+            <strong class="text-success">{{ rNum }}</strong>
+        {% elseif rNum >= 10 %}
+            <strong>{{ rNum }}</strong>
+        {% else %}
+            {{ rNum }}
+        {% endif %}
+    </div>
+</div>

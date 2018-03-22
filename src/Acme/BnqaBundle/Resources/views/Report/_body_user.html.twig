@@ -1,0 +1,8 @@
+<div id="reports-line">
+    {% for report in reports %}
+        {% include "AcmeBnqaBundle:Report:_report_user.html.twig" with {'report':report} %}
+    {% endfor %}
+    <div class="well unit input-block-level{% if reports|length <= 20 %} disabled{% endif %} load-to-read" style="text-align: center">
+        <span>つづきを読む</span>
+    </div>
+</div>

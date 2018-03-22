@@ -1,0 +1,12 @@
+{% extends "AcmeBnqaBundle:Report:show.html.twig" %}
+{% block typeId %}{% endblock %}
+{% block body %}
+    <h4 class="text-error">誤</h4>
+    <blockquote class="misprint-body wrong">
+        {{ report.wrongBody }}
+    </blockquote>
+    <h4 class="text-success">正</h4>
+    <blockquote class="misprint-body correct">
+        {{ report.correctBody }}
+    </blockquote>
+{% endblock body %}

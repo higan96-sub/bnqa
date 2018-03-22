@@ -1,0 +1,29 @@
+<div class="sidebar">
+    <div class="well">
+        <a href="{{ path('user_show',{'username':user.username}) }}" class="header-title">
+            <div class="sidebar-header">
+                <i class="icon-pencil"></i>最近投稿したレポート
+            </div>
+        </a>
+        <div class="item-sidebar-body">
+            {% for report in reports %}
+                <a href="{{ path('report_show',{'username':report.user.username,'id':report.id}) }}">
+                    <div class="sidebar-unit{% if loop.last %} last-unit{% endif %}">
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <img src="{{ report.item.imgUrl }}" alt="{{ report.item.title }}" class="img-polaroid">
+                            </div>
+                            <div class="span9">
+                                {% if report.body|length > 50 %}
+                                    {{ report.body|slice(0,50) }}...
+                                {% else %}
+                                    {{ report.body }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+{% for report in reports %}
+    {% include "AcmeBnqaBundle:User:_report.html.twig" %}
+{% else %}
+    <div class="unit">
+        まだ投稿はありません
+    </div>
+{% endfor %}

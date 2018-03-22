@@ -1,0 +1,37 @@
+{% for item in amazonItems %}
+    <div class="sidebar-unit item-unit" id="{{ item.getAsinCode }}">
+        <div class="row">
+            <div class="col-3 col-sm-3 col-lg-4">
+                <div>
+                    <a href="{{ path('item_show',{'asin_code' : item.getAsinCode}) }}">
+                        {% if item.getImgUrl == null %}
+                            <img src="{{ asset('bundles/acmebnqa/images/no-image-small.gif') }}" alt="{{ item.getTitle }}" class=" img-thumbnail">
+                        {% else %}
+                            <img src="{{ asset(item.getSizedImgUrl(80,'AA',false)) }}" alt="{{ item.getTitle }}" class=" img-thumbnail">
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            <div class="col-9 col-sm-9 col-lg-8">
+                <a href="{{ path('item_show',{'asin_code' : item.getAsinCode}) }}">
+                    <h6>
+                        {{ item.getTitle|slice(0,50) }}
+                    </h6>
+                </a>
+                {% include "AcmeBnqaBundle::_item_analysis.html.twig" with {'asinCode':item.getAsinCode} %}
+                <div class="amazon-link">
+                    <a href="{{ item.getUrl }}" class="bookmarked" target="_blank">
+                        amazon.co.jpで詳細を確認
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% if is_granted("IS_AUTHENTICATED_FULLY") and areTheseItemsFollowing is not null %}
+            <div class="row-fluid">
+                <div class="offset3">
+                    {% include "AcmeBnqaBundle::_many_following_button_sidebar.html.twig" with {'asinCode':item.getAsinCode,'list':areTheseItemsFollowing} %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}

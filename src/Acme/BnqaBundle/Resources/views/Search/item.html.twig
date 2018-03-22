@@ -1,0 +1,55 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% if app.request.get('_route') == 'author_show' %}
+    {% set page_title = author_name %}
+    {% set search_word = author_name %}
+{% else %}
+    {% set page_title = app.request.get('keyword') %}
+    {% set search_word = app.request.get('keyword') %}
+{% endif %}
+{% block page_title page_title %}
+    {% block content %}
+        <div class="row">
+            <div class="col-lg-9">
+                <div style="border-left:  1px solid #ddd;border-top:  1px solid #ddd;border-right:  1px solid #ddd;padding: 15px 10px;">
+                    {% if app.request.get('_route') == 'author_show' %}
+                        "<strong>{{ author_name }}</strong>"
+                                                           検索結果 <strong>{{ result.getTotalResults }}</strong> 冊
+                    {% else %}
+                        "<strong>{{ app.request.get('keyword') }}</strong>”
+                                                                          検索結果
+                        <strong>{{ result.getTotalResults }}</strong> 件
+                    {% endif %}
+                    <span class="pull-right">{% if app.request.get('page') %}{{ app.request.get('page') }}{% else %}1{% endif %}
+                        ページ目</span>
+                </div>
+                <div class="srd-line">
+                    {% for item in result.getAmazonItems %}
+                        {% include "AcmeBnqaBundle:Item:_item_unit_base.html.twig" %}
+                    {% endfor %}
+                </div>
+                {% if result.getTotalPages > 5 %}
+                    {% include "AcmeBnqaBundle:Search:_pagination.html.twig" with {'limit':5} %}
+                {% else %}
+                    {% include "AcmeBnqaBundle:Search:_pagination.html.twig" with {'limit':result.getTotalPages} %}
+                {% endif %}
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    <div class="sidebar-ad">
+                        <script type="text/javascript"><!--
+                            google_ad_client = "ca-pub-6281261028186687";
+                            /* sidebar */
+                            google_ad_slot = "6722626087";
+                            google_ad_width = 336;
+                            google_ad_height = 280;
+                            //-->
+                        </script>
+                        <script type="text/javascript"
+                                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+                    </div>
+                    {% include "AcmeBnqaBundle::about.html.twig" %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

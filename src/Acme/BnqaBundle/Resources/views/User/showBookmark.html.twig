@@ -1,0 +1,25 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set menu = 'bookmark' %}
+{% set controller = 'bookmark' %}
+{% block content %}
+    <div class="row">
+        <div class="span9">
+            {% include "AcmeBnqaBundle:User:_user_menu.html.twig" with {'user':user,'menu':'bookmark'} %}
+            <div id="homebody">
+                {% render "AcmeBnqaBundle:Report:tabMenu" with { 'userId' : user.id,'controller':'bookmark' } %}
+                <div id="reports-line">
+                    {% render "AcmeBnqaBundle:Report:reportsLine" with { 'userId' : user.id,'controller':'bookmark' } %}
+                </div>
+            </div>
+            <div class="well unit input-block-level load-to-read">
+                <span>つづきを読む</span>
+            </div>
+        </div>
+        <div class="span3">
+            {% render "AcmeBnqaBundle:User:sidebar" with { user_id: user.id,'controller':controller } %}
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    {% include "AcmeBnqaBundle::_js.html.twig" with{'controller':controller} %}
+{% endblock js %}

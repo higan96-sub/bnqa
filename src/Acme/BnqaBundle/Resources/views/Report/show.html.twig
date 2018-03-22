@@ -1,0 +1,101 @@
+{#Report Show#}
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set menu = 'user' %}
+{% set og_img_url = item.getSizedImgUrl('120','AA')  %}
+{% set og_title = report.username ~ 'の『' ~ item.getTitle ~ '』に関する投稿 - bnqa' %}
+{% set tw_description = report.body|slice(0,190) ~ '[...]' %}
+{% block page_title report.username ~ ' - ' ~ item.getTitle %}
+    {% block headerUnit %}
+    {% endblock %}
+    {% block content %}
+        <div class="container">
+            <div class="report-unit" id="{{ report.id }}">
+                <div class="report-header">
+                    <div class="row">
+                        <div class="col-offset-2 col-3 col-sm-2 col-lg-1">
+                            <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}" class="report-img-unit">
+                                <img src="{{ item.getSizedImgUrl('80','AA') }}" class="img-thumbnail"
+                                     alt="{{ item.getTitle }}">
+                            </a>
+                        </div>
+                        <div class="col-9 col-sm-10 col-lg-7">
+                            <h3>
+                                <a href="{{ path('user_show',{'username':report.username}) }}">{{ report.username }}</a>
+                            </h3>
+                            <h4 style="margin-left: 10px;" class="report-title-unit">
+                                <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}">
+                                    {{ item.title }}
+                                </a>
+                                {% include "AcmeBnqaBundle:Report:_typeLabel.html.twig" with {'name':report.typeName,'label':report.typeLabel} %}
+                                {% if report.page %}
+                                    <a href="{{ path('item_page',{'asinCode':item.getAsinCode,'bookPage':report.page}) }}">
+                                        <span class="badge">{{ report.page }}ページ</span>
+                                    </a>
+                                {% endif %}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-body-show shown-on-modal">
+                    <div class="row">
+                        <div class="col-offset-2 col-lg-8">
+                            <div class="well report-body-unit">
+                                <div>
+                                    {% if report.reply_to_id != null %}<a
+                                        href="{{ path('report_show',{'id':report.reply_to_id,'username':report.reply_to_username}) }}">{{ report.reply_to_id }}</a>
+                                    {% endif %}
+                                </div>
+                                {% if report.wrong_body is not null and report.wrong_body != '' %}
+                                    <div class="wrong-body">
+                                        <span class="wrong-sentence">{{ report.wrong_body }}</span>
+                                    </div>
+                                    <div class="correct-body">
+                                        <p>{{ report.body|nl2br }}</p>
+                                    </div>
+                                {% else %}
+                                    <p>
+                                        {{ report.body|nl2br }}
+                                    </p>
+                                {% endif %}
+                                <span class="datetime">{{ report.created_at|date("Y年m月d日 - H:i") }}</span>
+                            </div>
+                            {#<hr>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="report-footer">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <div class="row  visible-lg">
+                            <div class="col-offset-2 col-lg-8">
+                                <a href="{% if item.getProductGroup == 'Book' or item.getProductGroup == 'eBooks' %}#editReportBook{% else %}#editReport{% endif %}" class="js-action-reply" data-toggle="modal">
+                                    <span><i class="icon-share-alt"></i>返信</span>
+                                </a>
+                                <a href="#deleteModal" class="js-action-del" data-toggle="modal">
+                                    <span><i class="icon-pencil"></i>削除</span>
+                                </a>
+                                <a href="#" class="js-action-bookmark">
+                                    <span><i class="icon-bookmark"></i>ブックマークする</span>
+                                </a>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="btn-group btn-group-justified hidden-lg">
+                            <a href="{% if item.getProductGroup == 'Book' or item.getProductGroup == 'eBooks' %}#editReportBook{% else %}#editReport{% endif %}" class="btn js-action-reply" data-toggle="modal"><img
+                                        src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_221_unshare.png') }}"></a>
+                            <a href="#deleteModal" class="btn js-action-del" data-toggle="modal"><img
+                                        src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_016_bin.png') }}"></a>
+                            <a href="#" class="btn js-action-bookmark"><img
+                                        src="{{ asset('/bundles/acmebnqa/images/png/glyphicons_072_bookmark.png') }}"></a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="report-about visible-lg">
+                    <div class="row">
+                        <div class="col-offset-2 col-lg-8">
+                            {% include "AcmeBnqaBundle::about.html.twig" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

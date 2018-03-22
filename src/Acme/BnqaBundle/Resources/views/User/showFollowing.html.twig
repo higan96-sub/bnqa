@@ -1,0 +1,22 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% set controller ='following' %}
+{% block content %}
+    {% for item in followingItems %}
+        <div class="row">
+            <hr>
+            <div class="col-4">
+                <a href="{{ path('item_show',{'asin_code' : item.item.getAsinCode}) }}">
+                    <img src="{{ item.item.getSizedImgUrl('80','AA') }}" class="img-thumbnail">
+                </a>
+            </div>
+            <div class="col-8">
+                <a href="{% if item.item.isBook %}#editReportBook{% else %}#editReport{% endif %}" role="button"
+                   data-toggle="modal" class="btn btn-large btn-primary edit-button btn-block">投稿する</a>
+            </div>
+        </div>
+    {% endfor %}
+    <hr>
+{% endblock %}
+{% block js %}
+    {% include "AcmeBnqaBundle::_js.html.twig" with{'controller':controller} %}
+{% endblock js %}

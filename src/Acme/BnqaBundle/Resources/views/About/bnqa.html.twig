@@ -1,0 +1,28 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% block page_title 'bnqa.jpについて' %}
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    {% include "AcmeBnqaBundle:About:_sidemenu.html.twig" with {'target':'bnqa'} %}
+                </div>
+                <div class="col-lg-9">
+                    <div class="page-header">
+                        <h1>bnqaについて</h1>
+                    </div>
+                    <div>
+                        <h2>bnqaとは</h2>
+                        <p>bnqaは本に関するノート、質問、アドバイスができるサイトです。</p>
+                        <h2>bnqaの特徴</h2>
+                        <p>bnqaは人ではなく、物（アイテム）をフォローします。あなたの興味のあるアイテムをフォローし、そのアイテムに関する
+                        ノート、質問、アドバイスを、興味を同じくする他のユーザーと共有しましょう。
+                        </p>
+                        <h2>bnqaの使い方は自由</h2>
+                        <p>bnqaは本以外にも、CDやDVD、おもちゃやゲームなど様々なアイテムについてのノート、質問、アドバイスを共有できます。
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

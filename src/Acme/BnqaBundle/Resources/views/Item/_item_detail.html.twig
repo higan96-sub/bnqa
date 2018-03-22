@@ -1,0 +1,78 @@
+{#{% block page_title item.getTitle %}#}
+<div class="row-fluid" style="margin-bottom: 20px">
+    <div class="span3">
+        <a href="{{ item.getUrl }}" target="_blank">
+            <img src="{{ asset(item.getSizedImgUrl(250,'AA',false)) }}" class="img-polaroid img-rounded">
+        </a>
+    </div>
+    <div class="span9">
+        <div>
+            <h1>
+                <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}">
+                    {{ item.title }}
+                </a>
+                {% if bookPage != '0' %}
+                    <a href="{{ path('item_page',{'asinCode':item.getAsinCode,'bookPage':bookPage}) }}">
+                        <span class="badge">{{ bookPage }}ページ</span>
+                    </a>
+                {% endif %}
+            </h1>
+            <div class="item item-detail">
+                {% if item.getAuthor != null %}
+                    {% if item.isBook %}
+                        著者：
+                        {% for author in item.getAuthor %}
+                            <a href="{{ path('author_show',{'author_name': author}) }}">{{ author }}</a>
+                        {% endfor %}
+                    {% else %}
+                        {% for author in item.getAuthor %}
+                        {{ author }}
+                {% endfor %}
+                    {% endif %}
+                    <br>
+                {% endif %}
+                {{ item.getPublisher }}<br>
+                {% if item.isBook == true %}
+                    {{ item.getPage }}ページ<br>
+                {% endif %}
+                {% if item.price != null %}価格：
+                    {% if item.getPrice > item.getLowestPrice and item.getLowestPrice != 0 %}
+                        <a href="{{ item.getUrl }}" target="_blank">
+                            <span class="discount">&yen; {{ item.getLowestPrice|number_format }}</span>
+                            <small><s>&yen;{{ item.getPrice|number_format }}</s></small>
+                            <br>
+                        </a>
+                        OFF:
+                        <a href="{{ item.getUrl }}" target="_blank">
+                                        <span class="discount">&yen; {{ (item.getPrice - item.LowestPrice)|number_format }}
+                                            ({{ ((1 - item.LowestPrice / item.getPrice) * 100) | number_format(0, '.', ',') }}
+                                            %)</span>
+                        </a>
+                    {% else %}
+                        &yen; {{ item.getPrice|number_format }}
+                    {% endif %}<br>
+                {% endif %}
+                発売：{{ item.getReleasedDate|date('Y年m月d日') }}
+                <a href="{{ item.getUrl }}" target="_blank">
+                    <span class="small muted">({{ item.getDateInterval }})</span>
+                </a><br>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if isNowFollowing|length == 0 %}
+                        <button class="btn btn-small js-action-follow-item" style="margin-top:10px" data-loading-text="Loading..." autocomplete="off"  id="{{ item.getAsinCode }}">
+                            フォローする
+                        </button>
+                    {% else %}
+                        <button class="btn btn-small js-action-follow-item btn-info" style="margin-top:10px" data-loading-text="Loading..." autocomplete="off"  id="{{ item.getAsinCode }}">
+                            フォロー中
+                        </button>
+                    {% endif %}
+                {% endif %}
+                <a href="{{ item.getUrl }}" class="btn btn-warning btn-small" target="_blank">
+                    <img src="{{ asset('bundles/acmebnqa/images/amazon.png') }}" style="width: 20px;height: 20px">amazon.co.jpで詳細を確認する
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>

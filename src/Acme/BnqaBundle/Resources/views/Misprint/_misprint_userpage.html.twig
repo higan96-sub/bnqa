@@ -1,0 +1,6 @@
+{% extends "AcmeBnqaBundle:Misprint:_misprint.html.twig" %}
+{% block title %}
+    <a href="{{ path('item_show',{'asinCode':report.asinCode}) }}" class="muted">
+        {{ report.item.title }}
+    </a>
+{% endblock %}

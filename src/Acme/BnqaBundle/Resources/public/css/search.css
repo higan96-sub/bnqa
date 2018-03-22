@@ -1,0 +1,38 @@
+.srd-line {
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.srd {
+    padding: 15px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.srd:hover{
+    background-color: #eFeFeF;
+}
+
+.srd-item-detail {
+    border-top: 1px solid #ddd;
+}
+
+.srd-img{
+    border: 1px solid #FFF;
+}
+.srd-img:hover{
+    border: 1px solid #3c88bd;
+}
+
+h4 a{
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    /*font-size: 15px;*/
+}
+
+.sidebar-search {
+    border: 1px solid #ddd;
+    padding: 10px;
+}

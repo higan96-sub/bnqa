@@ -1,0 +1,38 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+    {% endif %}
+    <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal">
+        <legend>ログイン</legend>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+        <div class="control-group">
+            <label class="control-label"
+                   for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}"
+                   required="required"/>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"
+                   for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+
+            <input class="form-control" type="password" id="password" name="_password" required="required"/>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox" for="remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me"
+                           value="on"/>{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+                <input class="btn btn-default" type="submit" id="_submit" name="_submit"
+                       value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}"/>
+            </div>
+        </div>
+    </form>
+    <div style="margin-top: 10px">
+        <a href="{{ path('fos_user_resetting_request') }}">パスワードを忘れた場合はこちら</a>
+    </div>
+{% endblock fos_user_content %}

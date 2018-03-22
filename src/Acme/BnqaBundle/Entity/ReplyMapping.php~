@@ -1,0 +1,74 @@
+<?php
+
+namespace Acme\BnqaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Acme\BnqaBundle\Entity\Report;
+use Acme\BnqaBundle\Entity\User;
+
+/**
+ * Acme\BnqaBundle\Entity\Reply
+ *
+ * @ORM\Table(name="reply_mapping")
+ * @ORM\Entity(repositoryClass="Acme\BnqaBundle\Entity\ReplyMappingRepository")
+ */
+class ReplyMapping
+{
+  /**
+   * @var integer $id
+   *
+   * @ORM\Column(name="id", type="integer", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
+
+  /**
+   * @var Reply
+   *
+   * @ORM\ManyToOne(targetEntity="Report",cascade={"persist","remove"})
+   * @ORM\JoinColumns({
+   * @ORM\JoinColumn(name="reply_id", referencedColumnName="id")
+   * })
+   */
+  private $reply;
+
+  /**
+   * @var ReplyTo
+   *
+   * @ORM\ManyToOne(targetEntity="Report",cascade={"persist","remove"})
+   * @ORM\JoinColumns({
+   * @ORM\JoinColumn(name="reply_to_id", referencedColumnName="id")
+   * })
+   */
+  private $replyTo;
+
+  /**
+   * @var User
+   *
+   * @ORM\ManyToOne(targetEntity="User")
+   * @ORM\JoinColumns({
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+   * })
+   */
+  private $user;
+
+  /**
+   * @var \DateTime $createdAt
+   *
+   * @ORM\Column(name="created_at", type="datetime", nullable=false)
+   * @Gedmo\Timestampable(on="create")
+   */
+  private $createdAt;
+
+  /**
+   * @var \DateTime $updatedAt
+   *
+   * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+   * @Gedmo\Timestampable(on="update")
+   */
+  private $updatedAt;
+
+}

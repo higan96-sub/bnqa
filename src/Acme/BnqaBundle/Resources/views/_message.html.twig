@@ -1,0 +1,17 @@
+<div id="message-area">
+    {% if app.session.flashBag.has('message') %}
+        {% for flashMessage in app.session.flashBag.get('message') %}
+            <div class="alert alert-success input-block-level">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% elseif app.session.flashBag.has('error') %}
+        {% for flashMessage in app.session.flashBag.get('error') %}
+            <div class="alert alert-danger input-block-level">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

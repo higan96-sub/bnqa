@@ -1,0 +1,14 @@
+{% for item in result.getAmazonItems %}
+    <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}">
+        <div class="sidebar-unit">
+            <div class="row-fluid">
+                <div class="span3">
+                    <img src="{{ asset(item.getSizedImgUrl(90,'AA',false)) }}" class="img-polaroid">
+                </div>
+                <div class="offset1 span8">
+                    {{ item.getTitle }}<br>{{ item.getAuthor }}
+                </div>
+            </div>
+        </div>
+    </a>
+{% endfor %}

@@ -1,0 +1,53 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{#{% if app.request.get('_route') == 'author_show' %}#}
+    {#{% set page_title = author_name %}#}
+{#{% else %}#}
+    {#{% set page_title = app.request.get('keyword') %}#}
+    {#{% set search_word = app.request.get('keyword') %}#}
+{#{% endif %}#}
+{#{% block page_title page_title %}#}
+    {% block content %}
+        <div class="row">
+            <div class="col-lg-9">
+                {% if app.request.get('_route') == 'author_show' %}
+                    <div class="alert alert-danger">
+                        <strong>エラー：</strong>存在しない作者名です。
+                    </div>
+                    <div>
+                        <h4>再検索のヒント：</h4>
+                        <ul>
+                            <li>誤字・脱字がないかを確認してみてください。</li>
+                            <li>言葉の区切り方を変えてみてください。</li>
+                        </ul>
+                    </div>
+                {% else %}
+                    {% if app.request.get('keyword') is empty %}
+                        <div class="alert alert-danger">
+                            <strong>エラー：</strong>キーワードを指定してください
+                        </div>
+                        <div style="border:  1px solid #ddd;padding: 15px 10px;">
+                            </strong>
+                            検索結果
+                            <strong>0</strong> 件
+                        </div>
+                    {% else %}
+                        <div class="alert">
+                            <strong>{{ app.request.get('keyword') }}</strong>に一致するアイテム、作者は見つかりませんでした
+                        </div>
+                        <div>
+                            <h4>再検索のヒント：</h4>
+                            <ul>
+                                <li>誤字・脱字がないかを確認してみてください。</li>
+                                <li>言葉の区切り方を変えてみてください。</li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col-lg-3">
+                <div class="sidebar">
+                    {% include "AcmeBnqaBundle::about.html.twig" %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

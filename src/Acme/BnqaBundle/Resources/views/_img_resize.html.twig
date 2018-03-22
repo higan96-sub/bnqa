@@ -1,0 +1,4 @@
+{% if size is not defined %}
+    {% set size = 300 %}
+{% endif %}
+<img src="{{ asset(item.item_img_url|replace({'160':size}) ) }}" class="img-polaroid">

@@ -1,0 +1,120 @@
+<div class="report-unit unit shown-on-modal" id="{{ report.id }}">
+    <div class="unit-body ">
+        <div class="row">
+            <div class="col-3 col-lg-2 col-sm-3">
+                <div>
+                    {% block img %}
+                        {% if report.img_url == null %}
+                            <a href="{{ path('item_show',{'asin_code':report.asin_code}) }}" class="no-img-link">
+                                <div class="thumbnail no-img-thumbnail">
+                                    <div class="no-img">
+                                        {{ report.title }}
+                                    </div>
+                                </div>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('item_show',{'asin_code':report.asin_code}) }}" class="report-img-unit">
+                                <img src="{{ report.img_url }}" alt="{{ report.title }}"
+                                     class=" img-thumbnail">
+                            </a>
+                        {% endif %}
+                    {% endblock img %}
+                </div>
+            </div>
+            <div class="col-9 col-lg-10 col-sm-9">
+                <div class="unit-header report-title-unit">
+                    {% include "AcmeBnqaBundle:Report:_typeLabel.html.twig" with {'name':report.typeName,'label':report.typeLabel} %}
+                    {% if report.page != null and report.page != 0 %}
+                        <a href="{{ path('item_page',{'asinCode':report.asin_code,'bookPage':report.page}) }}">
+                            <span class="badge">{{ report.page }}ページ</span>
+                        </a>
+                    {% endif %}
+                    {% block titleSmall %}
+                        <a href="{{ path('user_show',{'username':report.username}) }}" class="username">
+                            @{{ report.username }}
+                        </a>
+                    {% endblock %}
+                </div>
+                <div class="report-body report-body-unit">
+                    <div>
+                        {% if report.reply_to_id != null %}<a
+                            href="{{ path('report_show',{'id':report.reply_to_id,'username':report.reply_to_username}) }}">{{ report.reply_to_id }}</a>
+                        {% endif %}
+                    </div>
+                    {% block body %}
+                        {% if report.wrong_body is not null and report.wrong_body != '' %}
+                            <div class="wrong-body">
+                                <span class="wrong-sentence">{{ report.wrong_body|slice(0,140) }}</span>
+                            </div>
+                            <div class="correct-body">
+                                <p>
+                                    {% if report.body|length > 140 %}
+                                        {{ report.body|slice(0,140) }}<a
+                                        href="{{ path('report_show',{'id':report.id,'username':report.username}) }}">
+                                            ...続きを読む</a>
+                                    {% else %}
+                                        {{ report.body }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        {% else %}
+                            <p>
+                                {% if report.body|length > 140 %}
+                                    {{ report.body|slice(0,140) }}<a
+                                    href="{{ path('report_show',{'id':report.id,'username':report.username}) }}">
+                                        ...続きを読む</a>
+                                {% else %}
+                                    {{ report.body }}
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    {% endblock body %}
+                </div>
+                <div class="visible-sm">
+                    <a href="{{ path('report_show',{'id':report.id,'username':report.username}) }}">
+                        <button class="btn btn-small btn-default pull-right">詳細</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-lg-2">
+            </div>
+            <div class="col-sm-9 col-lg-10">
+                <div class="unit-footer">
+                    <div class="hidden-sm">
+                        <a href="{{ path('report_show',{'id':report.id,'username':report.username}) }}" class="muted">
+                            詳細
+                        </a>
+                        <a href="{{ path('report_show',{'id':report.id,'username':report.username}) }}"
+                           class="report-menu">
+                            {{ report.created_at|date('Y/m/d H:i') }}
+                        </a>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <a href="{% if report.product_group == 'Book' or report.product_group == 'eBooks' %}#editReportBook{% else %}#editReport{% endif %}"
+                               class="js-action-reply report-menu" data-toggle="modal">
+                                <i class="icon-share-alt"></i>返信
+                            </a>
+                            {% if app.user.username == report.username %}
+                                <a href="#deleteModal" class="report-menu js-action-del" data-toggle="modal">
+                                    <i class="icon-trash"></i>削除
+                                </a>
+                            {% endif %}
+                            {% block bookmark %}
+                                {% if report.isBookmarked is null %}
+                                    <a href="#" class="report-menu js-action-bookmark">
+                                        <i class="icon-bookmark"></i>ブックマークする
+                                    </a>
+                                {% else %}
+                                    <a href="#" class="report-menu js-action-bookmark bookmarked">
+                                        <i class="icon-bookmark"></i>ブックマーク済み
+                                    </a>
+                                {% endif %}
+                            {% endblock bookmark %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

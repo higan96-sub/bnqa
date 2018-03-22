@@ -1,0 +1,51 @@
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST"
+      class="fos_user_registration_register form-horizontal">
+    <legend>ユーザー登録</legend>
+    <div class="form-group">
+        <div class="col-lg-3">
+            <label class="control-label">ユーザー名:</label>
+        </div>
+        <div class="col-lg-9">
+        {{ form_errors(form.username) }}
+            {{ form_widget(form.username,{'attr':{'class':'form-control','placeholder':'ユーザー名' } }) }}
+            <span class="help-block" >半角英数字で入力してください</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-3">
+            <label class="control-label">メールアドレス:</label>
+        </div>
+        <div class="col-lg-9">
+        {{ form_errors(form.email) }}
+            {{ form_widget(form.email,{'attr':{'class':'form-control','placeholder':'メールアドレス' } }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-3">
+            <label class="control-label">パスワード:</label>
+        </div>
+        <div class="col-lg-9">
+            {{ form_widget (form.plainPassword.first,{'attr':{'class':'form-control','placeholder':'パスワード' } }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-3">
+            <label>パスワード（確認）:</label>
+        </div>
+        <div class="col-lg-9">
+            {{ form_widget (form.plainPassword.second,{'attr':{'class':'form-control','placeholder':'パスワード（確認）' } }) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <div class="form-group">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-9">
+            <input type="submit" class="btn btn-large btn-info" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" style="padding: 6px 40px"/>
+            <div style="margin-top: 30px">
+                <a href="{{ path('fos_user_security_login') }}">すでに登録済みの方はこちらからログイン</a>
+            </div>
+        </div>
+
+    </div>
+
+</form>

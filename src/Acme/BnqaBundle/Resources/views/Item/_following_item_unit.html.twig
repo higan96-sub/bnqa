@@ -1,0 +1,4 @@
+{% extends "AcmeBnqaBundle:Item:_item_unit_base.html.twig" %}
+{% block caption %}
+    {{ item.getReleasedDate|date('Y年m月d日') }} 発売 （{{ item.getDateInterval }}）
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% block page_title 'edit' %}
+    {#{% set menu = 'item' %}#}
+    {% block content %}
+        <div class="container">
+            <div id="content">
+                <div class="page-header">
+                    <h1>編集
+                        <small>{{ item.getTitle }}</small>
+                    </h1>
+                </div>
+                <div class="row">
+                    <div id="item" class="span3">
+                        {% if app.request.query.has('report_id') == false %}
+                            <button id="search-btn" class="btn input-block-level" style="margin-bottom: 20px">
+                                {% if app.request.query.has('asinCode') %}アイテムを変更する{% else %}アイテムを検索する{% endif %}
+                            </button>
+                            <div id="item-search">
+                                <form id="search-form" action="{{ path('ajax_search') }}" method="get"
+                                      style="margin: 20px 0">
+                                    <div class="form-search">
+                                        <input id="search-keyword" type="text" class="span2 search-query" name="keyword"
+                                               placeholder="アイテムを検索">
+                                        <button id="search" class="btn" type="button"><i class="icon-search "></i>
+                                        </button>
+                                    </div>
+                                </form>
+                                <div id="search-result" style="height: 400px;overflow: auto">
+                                    <div id="result"></div>
+                                </div>
+                                <a id="select" class="btn btn-primary input-block-level disabled"
+                                   style="margin-top: 10px" href="{{ path('edit_report') }}">
+                                    アイテムを選択
+                                </a>
+                            </div>
+                        {% endif %}
+                        <div id="item-img">
+                            {% if app.request.query.has('asinCode') or app.request.query.has('report_id') %}
+                                <img src="{{ asset(item.getSizedImgUrl(300,'AA',false)) }}" class="img-rounded "
+                                     style="border: 2px solid #0088cc;margin: -2px">
+                            {% else %}
+                                <span class="alert input-block-level" style="text-align: center">アイテムを選択してください</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <div id="form" class="span9">
+                        <form class="well well-large" action="
+                        {% if app.request.query.has('asinCode') %}
+                        {{ path('edit_report',{'asinCode':app.request.query.get('asinCode')}) }}
+                        {% elseif app.request.query.has('report_id') %}
+                        {{ path('edit_report',{'report_id':app.request.query.get('report_id')}) }}
+                        {% else %}
+                        {{ path('edit_report') }}
+                        {% endif %}
+                        " method="post">
+                            <div class="row-fluid"></div>
+                            <div class="span12">
+                                {{ form_errors(form) }}
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    {{ form_widget(form.typeId) }}
+                                </div>
+                                <div class="span6">
+                                    {% if item.isBook %}
+                                        <div class="input-append">
+                                            {{ form_widget(form.page,{ 'attr': {'class':'input-mini'} }) }}
+                                            <span class="add-on">ページ</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <br>
+                            {{ form_widget(form.body, { 'attr': {'rows': '20','class':'input-block-level'} }) }}
+
+                            {{ form_rest(form) }}
+                            <input class="btn btn-primary{% if ( app.request.query.has('asinCode') or app.request.query.has('report_id') ) == false %} disabled{% endif %}"
+                                   type="submit" value="送信">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% include "AcmeBnqaBundle:Edit:_js.html.twig" %}
+    {% endblock %}

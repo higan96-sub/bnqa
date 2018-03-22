@@ -1,0 +1,280 @@
+h3 {
+    margin-top: 0px;
+    font-size: 20px;
+}
+
+form {
+    margin: 0;
+}
+
+h2 {
+    font-size: 26px;
+    line-height: 30px;
+    margin: 0px 0 25px 0px;
+}
+
+.user-header {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding: 0px;
+}
+
+.page-header{
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    line-height: 30px;
+}
+
+h1 a {
+    color: #333;
+}
+
+p {
+    line-height: 27px;
+    font-size: 18px;
+}
+
+.thin-hr {
+    margin: 0;
+}
+
+.item.item-detail {
+    margin-top: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #d7d7d7;
+    border-top: 1px solid #d7d7d7;
+}
+
+/*************************************************************************************/
+.main-container{
+    padding-top: 20px;
+}
+
+/*#navbar {*/
+    /*margin: 10px 0 5px 0;*/
+/*}*/
+
+.breadcrumb {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/*************************************************************************************/
+/*#sacrifice {*/
+    /*margin-top: 40px;*/
+/*}*/
+
+/*.navbar .brand {*/
+    /*padding-right: 20px;*/
+/*}*/
+
+.itemPageLink {
+    color: #333333;
+}
+
+.itemPageLink:hover {
+    color: #336f9b;
+}
+
+.discount {
+    color: #FF0000;
+}
+
+.content-inner {
+    background-color: #fbfbfb;
+}
+
+#header {
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    background-color: #eaeaea;
+}
+
+
+
+/*************************************************************************************/
+
+
+
+
+
+.nav-tabs {
+    margin-bottom: 0px;
+}
+
+.well-white {
+    background-color: #FFFFFF;
+}
+
+.hero-unit small {
+    margin-left: 40px;
+}
+
+
+
+/*************************************************************************************/
+
+.img-polaroid {
+    padding: 0;
+}
+/*************************************************************************************/
+/*.profile-img {*/
+    /*width: 40px;*/
+    /*height: 40px;*/
+/*}*/
+
+/*.profile-img-large {*/
+    /*width: 80px;*/
+    /*height: 80px;*/
+/*}*/
+
+/*.profile-img-middle {*/
+    /*width: 50px;*/
+    /*height: 50px;*/
+/*}*/
+
+/*.item-img {*/
+    /*width: 50px;*/
+    /*height: 50px;*/
+/*}*/
+
+/*************************************************************************************/
+.bundle-body {
+    padding: 0 20px 20px 20px;
+}
+
+.subtitle {
+    padding-top: 10px;
+}
+
+
+
+.load-to-read {
+    text-align: center;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    padding: 15px 0;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.load-to-read:hover{
+    background-color: #ddd;
+}
+
+.load-to-read.disabled {
+    display: none;
+}
+
+
+/************************************************************************************************************/
+/*search result data*/
+
+
+/**************/
+.js-action-follow-item.btn{
+    width: 90px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+
+#reports-line{
+    border-right:1px solid #ddd ;
+    border-left:1px solid #ddd ;
+}
+
+/*******************************************************************************************************************/
+.header-unit{
+    background-color: #efefef;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.footer-unit{
+    margin-top: 20px;
+    background-color: #efefef;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+}
+
+.img-profile-large{
+    width:90px;
+    height:90px;
+}
+
+.about{
+    border:1px solid #ddd ;
+    padding: 10px;
+}
+
+.about a{
+    color: #999;
+}
+
+.amazon-btn{
+    padding-top:  1.5px;padding-bottom: 1.5px;
+}
+
+.amazon-logo{
+    width: 20px;height: 20px;
+}
+.delete-report-body{
+    padding: 30px 5px ;
+}
+
+.datetime{
+    margin: 0;
+    padding: 0;
+    color: #999;
+}
+
+.report-header{
+    margin: 0;
+    padding: 0;
+}
+.report-body-show{
+    margin: 0;
+    padding: 13px 0 0px 0;
+}
+.report-body-show p{
+    margin-bottom: 8px;
+    padding: 29px 0;
+}
+.report-footer{
+    margin: 0;
+    padding: 0;
+
+}
+.report-about{
+    margin-top: 30px;
+    padding: 0;
+}
+
+.tab-icon{
+    width: 18px;
+    height: 18px;
+}
+.tab-icon-home{
+    width: 16px;
+    height: 16px;
+}
+.tab-icon-bookmark{
+    width: 10px;
+    height: 17px;
+}
+.navbar-decolation{
+    background: #5bc0de;
+}
+

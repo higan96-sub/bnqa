@@ -1,0 +1,11 @@
+<div class="list-group">
+    <a href="{{ path('about_bnqa') }}" class="list-group-item{% if target == 'bnqa' %} active {% endif %}">
+        bnqaについて
+    </a>
+    <a href="{{ path('about_me') }}" class="list-group-item{% if target == 'me' %} active{% endif %}">開発者について
+    </a>
+    <a href="{{ path('about_terms') }}" class="list-group-item{% if target == 'terms' %} active{% endif %}">利用規約
+    </a>
+    <a href="{{ path('about_contact') }}" class="list-group-item{% if target == 'contact' %} active{% endif %}">お問い合わせ
+    </a>
+</div>

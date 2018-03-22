@@ -1,0 +1,69 @@
+<div class="unit" id="{{ report.id }}">
+    <div class="row-fluid">
+        <div class="span1">
+            {% block image1 %}
+                <a href="{{ path('item_show',{'asinCode':report.raw_item_id}) }}">
+
+                        <img src="{{ asset(report.item_img_url) }}" class="img-polaroid item-img">
+
+                </a>
+            {% endblock %}
+        </div>
+        <div class="span1">
+            {% block image2 %}
+                <a href="{{ path('user_show',{'username':report.username}) }}">
+                    {% if report.profile_img_url == null %}
+                        <img src="{{ asset('bundles/acmebnqa/images/profile-img-default.png') }}" class="profile-img-middle img-polaroid img-rounded">
+                    {% else %}
+                        <img src="{{ asset( report.profile_img_url) }}" class="profile-img-middle img-polaroid img-rounded">
+                    {% endif %}
+                </a>
+            {% endblock %}
+        </div>
+        <div class="span10">
+            <div>
+                {% block title %}
+                    <a href="{{ path('item_show',{'asinCode':report.raw_item_id}) }}" class="muted">
+                        {{ report.item_title|slice(0,50) }}
+                    </a>
+                {% endblock %}
+                {% include "AcmeBnqaBundle:Report:_typeLabel.html.twig" with {'name':report.typeName,'label':report.typeLabel} %}
+                <a href="{{ path('report_show',{'id':report.id,'username':report.username}) }}" class="pull-right muted">
+                    {{ report.created_at|date('Y/m/d H:i') }}
+                </a>
+                {% if report.page != null %}
+                    <span class="badge">{{ report.page }} ページ</span>
+                {% endif %}
+            </div>
+            <div>
+                {% block body %}
+                {{ report.body }}
+                {% endblock body %}
+            </div>
+            <div>
+                <a href="{{ path('report_show',{'id':report.id,'username':report.username}) }}" class="muted">
+                    詳細
+                </a>
+                <a href="#" class="report-menu muted">
+                    <i class="icon-share-alt"></i>返信
+                </a>
+                {% if report.username == app.user.username %}
+                    <a href="#" class="report-menu muted js-action-del">
+                        <i class="icon-trash"></i>削除
+                    </a>
+                {% endif %}
+                {% block bookmark %}
+                {% if report.isBookmarked is null %}
+                <a href="{{ path('reportbookmark_create',{'report':report.id}) }}" class="report-menu muted js-action-bookmark">
+                    <i class="icon-bookmark"></i>ブックマークする
+                </a>
+                    {% else %}
+                        <a href="{{ path('reportbookmark_create',{'report':report.id}) }}" class="report-menu muted js-action-bookmark" style="color: #df8505">
+                            <i class="icon-bookmark"></i>ブックマーク済み
+                        </a>
+                {% endif %}
+                {% endblock bookmark %}
+            </div>
+        </div>
+    </div>
+</div>

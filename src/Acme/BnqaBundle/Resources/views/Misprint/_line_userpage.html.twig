@@ -1,0 +1,15 @@
+{% if asinCode is defined %}
+    <a href="{{ path('misprint_edit',{'asinCode':asinCode}) }}">
+        <button class="btn btn-inverse">誤植の投稿</button>
+    </a>
+{% endif %}
+
+{% if misprints|length > 0 %}
+    {% for report in misprints %}
+        {% include "AcmeBnqaBundle:Misprint:_misprint_userpage.html.twig" %}
+    {% endfor %}
+{% else %}
+    <div class="unit">
+        empty
+    </div>
+{% endif %}

@@ -1,0 +1,16 @@
+{% extends "AcmeBnqaBundle:Sidebar:_sidebar_item_unit.html.twig" %}
+{% block button %}
+    <div class="btn-group hidden-sm" style="margin-top: 4px">
+        <a href="{% if item.page %}#editReportBook{% else %}#editReport{% endif %}" role="button" data-toggle="modal" class="btn-small btn btn-primary edit-button">投稿する</a>
+        <button type="button" class="btn-small btn btn-info dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="js-action-follow-item following">フォロー解除</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ path('item_show',{'asin_code' : item.asin_code}) }}">アイテムページ</a></li>
+            <li><a href="http://amazon.co.jp/dp/{{ item.asin_code }}/{{ affiliateId }}" class="bookmarked"
+                   target="_blank"> amazon.co.jp</a></li>
+        </ul>
+    </div>
+{% endblock %}

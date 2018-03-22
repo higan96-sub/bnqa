@@ -1,0 +1,17 @@
+<ul style="list-style-type: none;margin: 0;padding:2px;">
+    {% for item in result.getAmazonItems %}
+        <ul style="list-style-type: none;margin: 0 ;padding: 0 ;cursor: pointer;" class="row-fluid">
+            <li style="" class="span5">
+                <img src="{{ asset(item.getSizedImgUrl(65,'AA',false)) }}" class="img-polaroid">
+            </li>
+            <li style="font-size: 12px;line-height:16px" class="span7">
+                <strong>
+                    {{ item.getTitle }}
+                </strong>{% if item.getAuthor != null %}<br>{% endif %}
+                {{ item.getAuthor }}
+                <span class="item-id" style="display: none">{{ item.getAsinCode }}</span>
+            </li>
+        </ul>
+        <hr>
+    {% endfor %}
+</ul>

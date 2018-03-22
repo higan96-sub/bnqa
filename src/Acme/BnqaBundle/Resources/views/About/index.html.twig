@@ -1,0 +1,14 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% block page_title 'bnqaの開発者' %}
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    {% include "AcmeBnqaBundle:About:_sidemenu.html.twig" with {'target':'terms'} %}
+                </div>
+                <div class="col-lg-9">
+                    {{ result }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

@@ -1,0 +1,9 @@
+<div id="reports-line">
+    {% for report in reports %}
+        {% include "AcmeBnqaBundle:Report:_report_item.html.twig" with {'report':report} %}
+    {% endfor %}
+</div>
+{% if page == 0 and reports|length > 19 %}
+
+{% endif %}
+

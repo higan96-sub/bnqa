@@ -1,0 +1,38 @@
+<div class="unit">
+    <div class="row-fluid">
+        <div class="span1">
+            <a href="{{ path('item_user',{'asinCode':report.asinCode,'user_name':report.user.username}) }}" class="itemPageLink">
+                <img src="{{ asset(report.user.getProfileImgUrl) }}" class="img-rounded">
+            </a>
+        </div>
+        <div class="span11">
+            {#本か電子書籍であったばあい、ページを彪辞する#}
+            {#{% if item.isBook == true %}#}
+                <span class="pull-left">
+                {% if report.page != null %}
+                    <a href="{{ path('item_page', {'asinCode':report.asinCode,'page_num':report.page}) }}">
+                        {{ report.page }}ページ
+                    </a>
+                {% else %}
+                    ページ指定なし
+                {% endif %}
+                </span>
+            {#{% endif %}#}
+            <span class="pull-right">
+                <a href="{{ path('report_show',{'id':report.id,'username':'higan96'}) }}" class="itemPageLink">{{ report.createdAt|date('Y/m/d H:i') }}</a>
+            </span><br>
+            <strong>
+                {{ report.user.username }}
+            </strong>
+            {% if report.body|length > 120 %}
+            {{ report.body|trim|slice(0,120) }}......
+            <small>
+                <a href="{{ path('report_show',{'id':report.id,'username':'higan96'}) }}">続きを読む</a>
+            </small>
+            {% else %}
+                {{ report.body|slice(0,120)|markdown('min') }}
+            {% endif %}<br>
+            <small><a href="{{ path('report_show',{'id':report.id,'username':'higan96'}) }}">詳細</a></small>
+        </div>
+    </div>
+</div>

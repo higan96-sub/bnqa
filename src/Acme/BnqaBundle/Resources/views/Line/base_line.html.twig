@@ -1,0 +1,11 @@
+{% if reports|length > 0 %}
+    {% for report in reports %}
+        {% block unit %}
+            {% include "AcmeBnqaBundle:Line:base_unit.html.twig" %}
+        {% endblock unit %}
+    {% endfor %}
+{% else %}
+    <div class="unit">
+        投稿はありません
+    </div>
+{% endif %}

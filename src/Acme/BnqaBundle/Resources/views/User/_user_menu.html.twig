@@ -1,0 +1,8 @@
+<ul class="nav nav-pills">
+    <li class="{% if menu == 'reports' %}active{% endif %}">
+        <a href="{{ path('user_show',{'username':user.usernameCanonical}) }}"><i class="icon-pencil{% if menu == 'reports' %} icon-white{% endif %}"></i>レポート</a></li>
+    <li class="{% if menu == 'following' %}active{% endif %}">
+        <a href="{{ path('user_show_following',{'username':user.usernameCanonical}) }}"><i class="icon-book{% if menu == 'following' %} icon-white{% endif %}"></i> アイテム</a></li>
+    <li class="{% if menu == 'bookmark' %}active{% endif %}">
+        <a href="{{ path('user_show_bookmark',{'username':user.usernameCanonical}) }}"><i class="icon-bookmark{% if menu == 'bookmark' %} icon-white{% endif %}"></i>ブックマーク</a></li>
+</ul>

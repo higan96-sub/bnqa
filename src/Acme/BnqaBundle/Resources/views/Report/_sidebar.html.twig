@@ -1,0 +1,27 @@
+<div class="well" style="padding:0">
+    <div style="padding: 10px 10px 0 10px;line-height: 10px">
+        <i class="icon-book"></i>{{ description }}
+    </div>
+    <hr class="thin-hr">
+    <div style="padding: 15px">
+        {% for item in items %}
+            {% if loop.first or loop.index % 3 == 1 %}
+                <div class="row-fluid">
+            {% endif %}
+            <div class="span4">
+                <a href="{{ path('item_show',{'asinCode' : item.asinCode}) }}">
+                    {% if item.item_img_url == null %}
+                        <img src="{{ asset('bundles/acmebnqa/images/no-image-small.gif') }}" alt="{{ item.item_title }}" class="img-polaroid" style="margin: 0 5px 5px 0">
+                    {% else %}
+                        <img src="{{ item.item_img_url }}" alt="{{ item.item_title }}" class="img-polaroid" style="margin: 0 5px 5px 0">
+                    {% endif %}
+                </a>
+            </div>
+            {% if loop.index % 3 == 0 or loop.last %}
+                </div>
+            {% endif %}
+        {% else %}
+            アイテムをフォローしてください
+        {% endfor %}
+    </div>
+</div>

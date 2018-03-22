@@ -1,0 +1,9 @@
+{% if reports|length > 0 %}
+    {% for report in reports %}
+        {% include "AcmeBnqaBundle:Item:_report.html.twig" %}
+    {% endfor %}
+{% else %}
+    <div class="unit">
+        まだ投稿はありません
+    </div>
+{% endif %}

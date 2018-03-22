@@ -1,0 +1,11 @@
+<span class="label
+                {% if name == 'note' %}
+                label-success
+                {% elseif name == 'question' %}
+                label-info
+                {% elseif name == 'advice' %}
+                label-danger
+                {% endif %}
+                ">
+                {{ label }}
+</span>

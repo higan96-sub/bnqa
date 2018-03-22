@@ -1,0 +1,16 @@
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% block page_title 'お問い合わせ' %}
+    {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    {% include "AcmeBnqaBundle:About:_sidemenu.html.twig" with {'target':'contact'} %}
+                </div>
+                <div class="col-lg-9">
+                    <iframe src="https://docs.google.com/forms/d/1ZWDwq7bYAGmdeFrDlbkWNbl19gijCLhRPRe6OGtvvDk/viewform?embedded=true"
+                            width="600" height="850" frameborder="0" marginheight="0" marginwidth="0">読み込み中...
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

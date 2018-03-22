@@ -1,0 +1,10 @@
+{% extends "AcmeBnqaBundle:Line:base_unit.html.twig" %}
+{% block img %}
+    <a href="{{ path('user_show',{'username':report.username}) }}" class="report-img-unit">
+        {% if report.profile_img_url == null %}
+            <img src="{{ asset('bundles/acmebnqa/images/profile-img-default.png') }}" class="img-rounded img-thumbnail">
+        {% else %}
+            <img src="{{ asset( report.profile_img_url) }}" class="profile-img-middle img-polaroid img-rounded">
+        {% endif %}
+    </a>
+{% endblock %}

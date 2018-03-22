@@ -1,0 +1,164 @@
+{# Item Show #}
+{% extends "AcmeBnqaBundle::base.html.twig" %}
+{% block page_title item.getTitle %}
+    {% set menu = 'item' %}
+    {% set og_img_url = item.getSizedImgUrl(120,'AA',false) %}
+    {% set og_url = path('item_show',{'asin_code':app.request.attributes.get('asinCode') }) %}
+    {% set og_title = item.getTitle ~ ' - bnqa' %}
+    {% block headerUnit %}
+        <div class="header-unit">
+            <div class="container item-unit" id="{{ item.getAsinCode }}">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-sm-3 col-lg-3">
+                            {#<div class="col-2 col-sm-2 col-lg-2">#}
+                            {#<div class="col-2 col-sm-2 col-lg-2">#}
+                            <a href="{{ item.getUrl }}" target="_blank">
+                                <img src="{{ asset(item.getSizedImgUrl(170,'AA',false)) }}" class="img-rounded"
+                                     style="width: 170px;height: 170px">
+                            </a>
+
+                        </div>
+                        <div class="col-sm-9 col-lg-9">
+                            {#<div class="col-6 col-sm-6 col-lg-6">#}
+                            {#<div class="col-6 col-sm-6 col-lg-6">#}
+                            <h1 style="margin-bottom: 10px">
+                                <a href="{{ path('item_show',{'asin_code':item.getAsinCode}) }}">
+                                    {{ item.title }}
+                                </a>
+                                {% if bookPage != '0' %}
+                                    <a href="{{ path('item_page',{'asinCode':item.getAsinCode,'bookPage':bookPage}) }}">
+                                        <span class="badge">{{ bookPage }}ページ</span>
+                                    </a>
+                                {% endif %}
+                            </h1>
+                            {% if item.getAuthor != null %}
+                                {% if item.isBook %}
+                                    著者：
+                                    {% for author in item.getAuthor %}
+                                        <a href="{{ path('author_show',{'author_name': author|replace({'/':' '}) }) }}">{{ author }}</a>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for author in item.getAuthor %}
+                                        {{ author }}
+                                    {% endfor %}
+                                {% endif %}
+                                <br>
+                            {% endif %}
+                            {{ item.getPublisher }}<br>
+                            {% if item.isBook == true %}
+                                {{ item.getPage }}ページ<br>
+                            {% endif %}
+                            {% if item.price != null %}価格：
+                                {% if item.getPrice > item.getLowestPrice and item.getLowestPrice != 0 %}
+                                    <a href="{{ item.getUrl }}" target="_blank">
+                                        <span class="discount">&yen; {{ item.getLowestPrice|number_format }}</span>
+                                        <small><s>&yen;{{ item.getPrice|number_format }}</s></small>
+                                        <br>
+                                    </a>
+                                    OFF:
+                                    <a href="{{ item.getUrl }}" target="_blank">
+                                        <span class="discount">&yen; {{ (item.getPrice - item.LowestPrice)|number_format }}
+                                            ({{ ((1 - item.LowestPrice / item.getPrice) * 100) | number_format(0, '.', ',') }}
+                                            %)</span>
+                                    </a>
+                                {% else %}
+                                    &yen; {{ item.getPrice|number_format }}
+                                {% endif %}<br>
+                            {% endif %}
+                            発売：{{ item.getReleasedDate|date('Y年m月d日') }}
+                            <a href="{{ item.getUrl }}" target="_blank">
+                                <span class="small muted">({{ item.getDateInterval }})</span>
+                            </a><br>
+
+                            <div style="padding-top: 10px">
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <a href="{% if item.isBook %}#editReportBook{% else %}#editReport{% endif %}"
+                                       role="button" class="btn btn-small btn-primary edit-button" data-toggle="modal">
+                                        投稿する
+                                    </a>
+                                    {% if isNowFollowing == false %}
+                                        <button class="btn btn-small btn-default js-action-follow-item"
+                                                id="{{ item.getAsinCode }}">
+                                            フォローする
+                                        </button>
+                                    {% else %}
+                                        <button class="btn btn-small btn-info js-action-follow-item following"
+                                                id="{{ item.getAsinCode }}">
+                                            フォロー中
+                                        </button>
+                                    {% endif %}
+                                {% endif %}
+                                <a href="{{ item.getUrl }}" class="btn btn-warning btn-small" target="_blank">
+                                    <img src="{{ asset('bundles/acmebnqa/images/amazon.png') }}"
+                                         class="amazon-logo">amazon.co.jpで詳細を確認する
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock headerUnit %}
+    {% block content %}
+        <div class="row">
+            <div class="col-lg-8" style="margin-bottom: 40px">
+                {% if bookPage == null %}
+                    {% set bookPage = '0' %}
+                {% endif %}
+                {% if item.isBook %}
+                    {% set isBook = '1' %}
+                {% else %}
+                    {% set isBook = '0' %}
+                    {% set bookPage = '0' %}
+                {% endif %}
+                {% include "AcmeBnqaBundle::_message.html.twig" %}
+                <div id="homebody">
+                    {% render controller("AcmeBnqaBundle:Report:tabMenu" , { 'asinCode' : item.getAsinCode,'controller':'item','isBook':item.isBook,'bookPage':bookPage }) %}
+                    <div id="reports-line">
+                        {% render controller("AcmeBnqaBundle:Report:reportsLine" , { 'asinCode' : item.getAsinCode,'controller':'item','bookPage':bookPage }) %}
+                    </div>
+                </div>
+                <div class="well unit input-block-level load-to-read">
+                    <span>つづきを読む</span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#">
+                            関連アイテム
+                        </a>
+                    </li>
+                </ul>
+                <div class="similarities"
+                     style="border-right: 1px solid #ddd;border-left: 1px solid #ddd;margin-bottom: 20px">
+                    <div class="sidebar">
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar sidebar-ad">
+                    <script type="text/javascript"><!--
+                        google_ad_client = "ca-pub-6281261028186687";
+                        /* home_text */
+                        google_ad_slot = "9339845283";
+                        google_ad_width = 300;
+                        google_ad_height = 250;
+                        //-->
+                    </script>
+                    <script type="text/javascript"
+                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+                <div class="sidebar">
+                    {% include "AcmeBnqaBundle::about.html.twig" with{} %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block js %}
+        {% include "AcmeBnqaBundle::_js.html.twig" with{'controller':'item'} %}
+    {% endblock js %}
